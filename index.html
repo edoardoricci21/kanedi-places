@@ -43,7 +43,7 @@
         const f = r.fields;
         return `
           <div class="card">
-            <h3>🏡 ${Array.isArray(f["Crèches"]) ? f["Crèches"][0] : (f["Crèches"] || "Crèche sans nom")}</h3>
+            <h3>🏡 ${Array.isArray(f["Nom de la crèche"]) ? f["Nom de la crèche"][0] : (f["Nom de la crèche"] || "Crèche sans nom")}</h3>
             <p>🟢 <strong>${f["Places disponible"] ?? "?"}</strong> place(s)</p>
             <p>👶 ${f["Âge minimum (mois)"] ?? "?"} à ${f["Âge maximum (mois)"] ?? "?"} mois</p>
             <div style="margin-top:8px;">
