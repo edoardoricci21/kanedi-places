@@ -2,60 +2,60 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Places disponibles — Kanedi Kids</title>
   <style>
-    body { margin: 0; padding: 16px; font-family: sans-serif; background: transparent; }
-    .card { border: 2px solid #e8f4f8; padding: 20px; margin: 12px 0;
-            border-radius: 12px; background: #f9fdff; border-left: 4px solid #1a4d8f; }
+    body { margin: 0; padding: 16px; font-family: sans-serif; }
+    .card { border: 2px solid #e8f4f8; padding: 20px; margin: 12px 0; border-radius: 12px; background: #f9fdff; border-left: 4px solid #1a4d8f; }
     h3 { margin: 0 0 8px; color: #1a4d8f; font-size: 16px; }
     p { margin: 4px 0; font-size: 14px; color: #333; }
-    .tag { display: inline-block; background: #e8f2fc; color: #185FA5;
-           font-size: 12px; padding: 3px 10px; border-radius: 20px; margin: 4px 4px 0 0; }
-    .vide { color: #888; font-style: italic; padding: 20px 0; text-align: center; }
+    .tag { display: inline-block; background: #e8f2fc; color: #185FA5; font-size: 12px; padding: 3px 10px; border-radius: 20px; margin: 4px 4px 0 0; }
     .titre { font-size: 18px; font-weight: bold; color: #1a4d8f; margin-bottom: 4px; }
     .sous-titre { font-size: 13px; color: #888; margin-bottom: 16px; }
-    .live { display: inline-block; width: 8px; height: 8px; background: #1D9E75;
-            border-radius: 50%; margin-right: 6px; animation: pulse 1.5s infinite; }
+    .live { display: inline-block; width: 8px; height: 8px; background: #1D9E75; border-radius: 50%; margin-right: 6px; animation: pulse 1.5s infinite; }
+    .erreur { background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 8px; font-size: 13px; color: #333; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
   </style>
 </head>
 <body>
   <p class="titre">Places disponibles</p>
   <p class="sous-titre"><span class="live"></span>Mis à jour en temps réel</p>
-  <div id="places-creches"></div>
+  <div id="places-creches"><p style="color:#888;">Chargement...</p></div>
   <script>
     const API_KEY = "pathT31bfkApIwGif.c6333c1923694ed8c4862dd2f1efeb150aea3b9b240bf02221ff062838eee45c";
     const BASE_ID = "app0zlg67GXNa7xjB";
     const TABLE_ID = "tblLgTCx0aWIP0Pux";
+    const container = document.getElementById("places-creches");
 
-  fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`, {
+    fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`, {
       headers: { Authorization: `Bearer ${API_KEY}` }
     })
     .then(r => r.json())
     .then(data => {
-      const container = document.getElementById("places-creches");
+      console.log("Réponse Airtable:", JSON.stringify(data));
+      if (data.error) {
+        container.innerHTML = `<div class="erreur">❌ Erreur Airtable : ${data.error.type} — ${data.error.message}</div>`;
+        return;
+      }
       if (!data.records || !data.records.length) {
-        container.innerHTML = '<p class="vide">Aucune place disponible actuellement.</p>';
+        container.innerHTML = `<div class="erreur">⚠️ Connecté mais 0 enregistrement reçu. Vérifiez les données Airtable.</div>`;
         return;
       }
       container.innerHTML = data.records.map(r => {
         const f = r.fields;
         return `
           <div class="card">
-            <h3>🏡 ${f["Crèches"] || "Crèche"}</h3>
-            <p>🟢 <strong>${f["Places disponible"]}</strong> place(s) disponible(s)</p>
-            <p>👶 De <strong>${f["Âge minimum (mois)"]}</strong> à <strong>${f["Âge maximum (mois)"]}</strong> mois</p>
+            <h3>🏡 ${f["Crèches"] || f["Creches"] || "Crèche sans nom"}</h3>
+            <p>🟢 <strong>${f["Places disponible"] ?? "?"}</strong> place(s)</p>
+            <p>👶 ${f["Âge minimum (mois)"] ?? "?"} à ${f["Âge maximum (mois)"] ?? "?"} mois</p>
             <div style="margin-top:8px;">
-              ${f["Type de contrat"] ? `<span class="tag">📋 ${f["Type de contrat"]}</span>` : ""}
+              ${f["Type de contrat"] ? `<span class="tag">${f["Type de contrat"]}</span>` : ""}
               ${f["Date de disponibilité"] ? `<span class="tag">📅 ${f["Date de disponibilité"]}</span>` : ""}
             </div>
             ${f["Notes"] ? `<p style="margin-top:10px;color:#666;font-style:italic;">${f["Notes"]}</p>` : ""}
           </div>`;
       }).join("");
     })
-    .catch(() => {
-      document.getElementById("places-creches").innerHTML = "<p>Erreur de chargement.</p>";
+    .catch(err => {
+      container.innerHTML = `<div class="erreur">❌ Erreur réseau : ${err.message}</div>`;
     });
   </script>
 </body>
