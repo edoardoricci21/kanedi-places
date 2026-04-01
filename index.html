@@ -6,41 +6,74 @@
   <title>Places disponibles — Kanedi Kids</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: sans-serif; background: #F5F3FF; padding: 24px; color: #2C2C2C; }
-    .header { background: #8A4CFF; border-radius: 16px; padding: 24px; margin-bottom: 24px; }
-    .header-title { font-size: 22px; font-weight: 600; color: #FFFFFF; margin-bottom: 6px; }
-    .header-sub { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.85); }
-    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; animation: pulse 1.5s infinite; flex-shrink: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #F5F3FF; padding: 28px; color: #2C2C2C; }
+    .header { background: #8A4CFF; border-radius: 20px; padding: 28px 32px; margin-bottom: 28px; display: flex; justify-content: space-between; align-items: center; }
+    .header-left h1 { font-size: 24px; font-weight: 700; color: #FFFFFF; margin-bottom: 8px; }
+    .header-live { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.15); border-radius: 20px; padding: 5px 12px; }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #FFFFFF; animation: pulse 1.5s infinite; }
+    .live-text { font-size: 12px; color: rgba(255,255,255,0.9); }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
-    .card { background: #FFFFFF; border-radius: 14px; padding: 18px; border: 1.5px solid #E8DEFF; }
-    .card-waiting { opacity: 0.6; }
-    .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-    .card-name { font-size: 15px; font-weight: 600; color: #2C2C2C; }
-    .badge-places { background: #8A4CFF; color: #FFFFFF; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
-    .badge-attente { background: #F5F3FF; color: #8A4CFF; font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid #D4C5FF; }
-    .card-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #2C2C2C; margin-bottom: 5px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-    .tag { background: #F5F3FF; color: #8A4CFF; font-size: 11px; padding: 3px 10px; border-radius: 20px; border: 1px solid #D4C5FF; }
-    .note { font-size: 12px; color: #2C2C2C; opacity: 0.6; margin-top: 10px; font-style: italic; }
-    .vide { text-align: center; padding: 40px 20px; color: #2C2C2C; opacity: 0.5; font-style: italic; }
-    .erreur { background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 8px; font-size: 13px; color: #2C2C2C; }
+    .header-stat { text-align: right; }
+    .stat-num { font-size: 36px; font-weight: 700; color: #FFFFFF; line-height: 1; }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .card { background: #FFFFFF; border-radius: 18px; padding: 22px; border: 1.5px solid #EDE8FF; }
+    .card-waiting { background: #FAFAFA; border-color: #E8E8E8; opacity: 0.75; }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+    .card-icon { width: 40px; height: 40px; border-radius: 12px; background: #F5F3FF; display: flex; align-items: center; justify-content: center; }
+    .card-icon svg { width: 20px; height: 20px; }
+    .card-name { font-size: 16px; font-weight: 600; color: #2C2C2C; margin-top: 8px; }
+    .card-name-waiting { color: #999999; }
+    .badge-places { background: #8A4CFF; color: #FFFFFF; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; white-space: nowrap; }
+    .badge-attente { background: #F0EDFF; color: #8A4CFF; font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 1px solid #D4C5FF; white-space: nowrap; }
+    .divider { height: 1px; background: #F0EDFF; margin: 14px 0; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .info-item { background: #F5F3FF; border-radius: 10px; padding: 10px 12px; }
+    .info-item-grey { background: #F5F5F5; }
+    .info-label { font-size: 10px; color: #8A4CFF; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+    .info-label-grey { color: #AAAAAA; }
+    .info-value { font-size: 13px; color: #2C2C2C; font-weight: 500; }
+    .info-value-grey { color: #AAAAAA; }
+    .tag { display: inline-block; background: #F5F3FF; color: #8A4CFF; font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid #D4C5FF; margin-right: 6px; }
+    .note { font-size: 12px; color: #2C2C2C; opacity: 0.5; margin-top: 12px; font-style: italic; line-height: 1.5; }
+    .footer { text-align: center; margin-top: 24px; font-size: 12px; color: #2C2C2C; opacity: 0.4; }
+    .vide { text-align: center; padding: 40px; color: #2C2C2C; opacity: 0.5; font-style: italic; }
+    .erreur { background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 8px; font-size: 13px; }
   </style>
 </head>
 <body>
   <div class="header">
-    <div class="header-title">Places disponibles</div>
-    <div class="header-sub">
-      <span class="live-dot"></span>
-      Mis à jour en temps réel — Kanedi Kids Luxembourg
+    <div class="header-left">
+      <h1>Places disponibles</h1>
+      <div class="header-live">
+        <span class="live-dot"></span>
+        <span class="live-text">Mis à jour en temps réel — Kanedi Kids</span>
+      </div>
+    </div>
+    <div class="header-stat">
+      <div class="stat-num" id="total-places">—</div>
+      <div class="stat-label">places disponibles</div>
     </div>
   </div>
-  <div id="places-creches" class="grid"><p class="vide">Chargement...</p></div>
+
+  <div id="places-creches" class="grid">
+    <p class="vide">Chargement...</p>
+  </div>
+
+  <div class="footer">Kanedi Kids Luxembourg — kanedikids.lu</div>
 
   <script>
     const API_KEY = "patdOBeyo0wZcbPHq" + ".1efbb13931cae086a456c61789f44cbaa7cb31e16beaedabf99caf46ba603cd5";
     const BASE_ID = "app0zlg67GXNa7xjB";
     const TABLE_ID = "tblLgTCx0aWIP0Pux";
+
+    const iconHouse = (color, stroke) => `
+      <div class="card-icon" style="background:${color};">
+        <svg viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="1.5" width="20" height="20">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>`;
 
     fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`, {
       headers: { Authorization: `Bearer ${API_KEY}` }
@@ -57,26 +90,66 @@
         container.innerHTML = `<p class="vide">Aucune place disponible actuellement.</p>`;
         return;
       }
+      const totalPlaces = visibles.reduce((sum, r) => sum + (r.fields["Places disponible"] || 0), 0);
+      document.getElementById("total-places").textContent = totalPlaces;
+
       container.innerHTML = visibles.map(r => {
         const f = r.fields;
         const nom = Array.isArray(f["Nom de la crèche"]) ? f["Nom de la crèche"][0] : "Crèche";
         const places = f["Places disponible"] || 0;
         const hasPlaces = places > 0;
-        return `
-          <div class="card ${hasPlaces ? '' : 'card-waiting'}">
-            <div class="card-top">
-              <span class="card-name">${nom}</span>
-              ${hasPlaces
-                ? `<span class="badge-places">${places} place${places > 1 ? 's' : ''}</span>`
-                : `<span class="badge-attente">Liste d'attente</span>`}
-            </div>
-            ${f["Date de disponibilité"] ? `<div class="card-row">Dispo le ${f["Date de disponibilité"]}</div>` : ''}
-            <div class="card-row">${f["Âge minimum (mois)"]} à ${f["Âge maximum (mois)"]} mois</div>
-            <div class="tags">
-              ${f["Type de contrat"] ? `<span class="tag">${f["Type de contrat"]}</span>` : ''}
-            </div>
-            ${f["Notes"] ? `<p class="note">${f["Notes"]}</p>` : ''}
-          </div>`;
+        const dispo = f["Date de disponibilité"] || "—";
+        const ageMin = f["Âge minimum (mois)"] ?? "?";
+        const ageMax = f["Âge maximum (mois)"] ?? "?";
+
+        if (hasPlaces) {
+          return `
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  ${iconHouse("#F5F3FF", "#8A4CFF")}
+                  <div class="card-name">${nom}</div>
+                </div>
+                <span class="badge-places">${places} place${places > 1 ? 's' : ''}</span>
+              </div>
+              <div class="divider"></div>
+              <div class="info-grid">
+                <div class="info-item">
+                  <div class="info-label">Disponible</div>
+                  <div class="info-value">${dispo}</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">Tranche d'âge</div>
+                  <div class="info-value">${ageMin} – ${ageMax} mois</div>
+                </div>
+              </div>
+              ${f["Type de contrat"] ? `<span class="tag">${f["Type de contrat"]}</span>` : ""}
+              ${f["Notes"] ? `<p class="note">${f["Notes"]}</p>` : ""}
+            </div>`;
+        } else {
+          return `
+            <div class="card card-waiting">
+              <div class="card-header">
+                <div>
+                  ${iconHouse("#F0F0F0", "#AAAAAA")}
+                  <div class="card-name card-name-waiting">${nom}</div>
+                </div>
+                <span class="badge-attente">Liste d'attente</span>
+              </div>
+              <div class="divider" style="background:#EEEEEE;"></div>
+              <div class="info-grid">
+                <div class="info-item info-item-grey">
+                  <div class="info-label info-label-grey">Disponible</div>
+                  <div class="info-value info-value-grey">—</div>
+                </div>
+                <div class="info-item info-item-grey">
+                  <div class="info-label info-label-grey">Tranche d'âge</div>
+                  <div class="info-value info-value-grey">${ageMin} – ${ageMax} mois</div>
+                </div>
+              </div>
+              <p class="note">Aucune place disponible actuellement</p>
+            </div>`;
+        }
       }).join("");
     })
     .catch(err => {
