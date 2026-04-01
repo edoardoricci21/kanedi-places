@@ -7,23 +7,27 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', sans-serif; background: #F5F3FF; padding: 28px; color: #2C2C2C; }
-    .header { background: #8A4CFF; border-radius: 20px; padding: 28px 32px; margin-bottom: 28px; display: flex; justify-content: space-between; align-items: center; }
-    .header-left h1 { font-size: 24px; font-weight: 700; color: #FFFFFF; margin-bottom: 8px; }
+    .header { background: #8A4CFF; border-radius: 20px; padding: 28px 32px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .header-left h1 { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 8px; }
     .header-live { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.15); border-radius: 20px; padding: 5px 12px; }
-    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #FFFFFF; animation: pulse 1.5s infinite; }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: pulse 1.5s infinite; }
     .live-text { font-size: 12px; color: rgba(255,255,255,0.9); }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    .header-stat { text-align: right; }
-    .stat-num { font-size: 36px; font-weight: 700; color: #FFFFFF; line-height: 1; }
-    .stat-label { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px; }
+    .stat-num { font-size: 36px; font-weight: 700; color: #fff; line-height: 1; text-align: right; }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px; text-align: right; }
+    .filter-bar { background: #fff; border-radius: 16px; padding: 16px 20px; margin-bottom: 20px; border: 1.5px solid #EDE8FF; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .filter-label { font-size: 13px; font-weight: 600; color: #8A4CFF; white-space: nowrap; }
+    .filter-select { background: #F5F3FF; border: 1.5px solid #D4C5FF; border-radius: 10px; padding: 8px 32px 8px 14px; font-size: 13px; color: #2C2C2C; cursor: pointer; flex: 1; min-width: 160px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%238A4CFF' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+    .filter-reset { background: transparent; border: 1.5px solid #D4C5FF; border-radius: 10px; padding: 8px 14px; font-size: 12px; color: #8A4CFF; cursor: pointer; white-space: nowrap; }
+    .filter-result { font-size: 12px; color: #2C2C2C; opacity: 0.5; margin-left: auto; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-    .card { background: #FFFFFF; border-radius: 18px; padding: 22px; border: 1.5px solid #EDE8FF; }
-    .card-waiting { background: #FAFAFA; border-color: #E8E8E8; opacity: 0.75; }
+    .card { background: #fff; border-radius: 18px; padding: 22px; border: 1.5px solid #EDE8FF; }
+    .card-waiting { background: #FAFAFA; border-color: #E8E8E8; opacity: 0.7; }
     .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
     .card-icon { width: 40px; height: 40px; border-radius: 12px; background: #F5F3FF; display: flex; align-items: center; justify-content: center; }
-    .card-name { font-size: 16px; font-weight: 600; color: #2C2C2C; margin-top: 8px; }
-    .card-name-waiting { color: #999999; }
-    .badge-places { background: #8A4CFF; color: #FFFFFF; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; white-space: nowrap; }
+    .card-name { font-size: 15px; font-weight: 600; color: #2C2C2C; margin-top: 8px; }
+    .card-name-w { color: #999; }
+    .badge-places { background: #8A4CFF; color: #fff; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; white-space: nowrap; }
     .badge-attente { background: #F0EDFF; color: #8A4CFF; font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 1px solid #D4C5FF; white-space: nowrap; }
     .divider { height: 1px; background: #F0EDFF; margin: 14px 0; }
     .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
@@ -31,12 +35,15 @@
     .info-label { font-size: 10px; color: #8A4CFF; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
     .info-value { font-size: 13px; color: #2C2C2C; font-weight: 500; }
     .tag { display: inline-block; background: #F5F3FF; color: #8A4CFF; font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid #D4C5FF; margin-right: 6px; margin-bottom: 6px; }
-    .note { font-size: 12px; color: #2C2C2C; opacity: 0.5; margin-top: 12px; font-style: italic; line-height: 1.5; }
-    .equipements { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .equip-item { display: flex; align-items: center; gap: 5px; background: #F5F3FF; border: 1px solid #E0D5FF; border-radius: 20px; padding: 5px 10px; font-size: 11px; color: #2C2C2C; }
-    .equip-dot { width: 6px; height: 6px; border-radius: 50%; background: #8A4CFF; flex-shrink: 0; }
-    .section-label { font-size: 10px; color: #8A4CFF; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; margin-top: 14px; }
-    .footer { text-align: center; margin-top: 24px; font-size: 12px; color: #2C2C2C; opacity: 0.4; }
+    .section-label { font-size: 10px; color: #8A4CFF; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; margin-top: 12px; }
+    .equip-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+    .equip-item { display: inline-flex; align-items: center; gap: 5px; background: #F5F3FF; border: 1px solid #E0D5FF; border-radius: 20px; padding: 4px 10px; font-size: 11px; color: #2C2C2C; }
+    .equip-dot { width: 5px; height: 5px; border-radius: 50%; background: #8A4CFF; flex-shrink: 0; }
+    .note { font-size: 12px; color: #2C2C2C; opacity: 0.5; margin-top: 10px; font-style: italic; }
+    .empty-state { background: #fff; border-radius: 18px; padding: 32px; text-align: center; border: 1.5px solid #EDE8FF; grid-column: 1/-1; }
+    .empty-title { font-size: 16px; font-weight: 600; color: #8A4CFF; margin-bottom: 6px; }
+    .empty-sub { font-size: 13px; color: #2C2C2C; opacity: 0.5; }
+    .footer { text-align: center; margin-top: 20px; font-size: 12px; color: #2C2C2C; opacity: 0.35; }
     .vide { text-align: center; padding: 40px; color: #2C2C2C; opacity: 0.5; font-style: italic; }
     .erreur { background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 8px; font-size: 13px; }
   </style>
@@ -45,21 +52,21 @@
   <div class="header">
     <div class="header-left">
       <h1>Places disponibles</h1>
-      <div class="header-live">
-        <span class="live-dot"></span>
-        <span class="live-text">Mis à jour en temps réel — Kanedi Kids</span>
-      </div>
+      <div class="header-live"><span class="live-dot"></span><span class="live-text">Mis à jour en temps réel — Kanedi Kids</span></div>
     </div>
-    <div class="header-stat">
-      <div class="stat-num" id="total-places">—</div>
-      <div class="stat-label">places disponibles</div>
-    </div>
+    <div><div class="stat-num" id="total-places">—</div><div class="stat-label">places disponibles</div></div>
   </div>
 
-  <div id="places-creches" class="grid">
-    <p class="vide">Chargement...</p>
+  <div class="filter-bar">
+    <span class="filter-label">Disponible en</span>
+    <select class="filter-select" id="mois-select" onchange="filtrer()">
+      <option value="">Tous les mois</option>
+    </select>
+    <button class="filter-reset" onclick="reset()">Réinitialiser</button>
+    <span class="filter-result" id="result-label"></span>
   </div>
 
+  <div id="places-creches" class="grid"><p class="vide">Chargement...</p></div>
   <div class="footer">Kanedi Kids Luxembourg — kanedikids.lu</div>
 
   <script>
@@ -67,44 +74,78 @@
     const BASE_ID = "app0zlg67GXNa7xjB";
     const TABLE_ID = "tblLgTCx0aWIP0Pux";
 
+    const MOIS_FR = ['','Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+
     const equipements = [
-      { champ: "Allaitement accepté", label: "Allaitement accepté", emoji: "🤱" },
-      { champ: "Couches fournies",    label: "Couches fournies",    emoji: "🧷" },
-      { champ: "Caméra",              label: "Caméra",              emoji: "📷" },
-      { champ: "Jardin",              label: "Jardin",              emoji: "🌿" },
-      { champ: "Sorties",             label: "Sorties",             emoji: "🚶" },
-      { champ: "Label qualité",       label: "Label qualité",       emoji: "🏅" },
-      { champ: "Cuisine sur place",   label: "Cuisine sur place",   emoji: "🍽️" },
-      { champ: "Application parents", label: "Application parents", emoji: "📱" },
+      { champ: "Allaitement accepté", label: "Allaitement", emoji: "🤱" },
+      { champ: "Couches fournies",    label: "Couches",     emoji: "🧷" },
+      { champ: "Caméra",              label: "Caméra",      emoji: "📷" },
+      { champ: "Jardin",              label: "Jardin",      emoji: "🌿" },
+      { champ: "Sorties",             label: "Sorties",     emoji: "🚶" },
+      { champ: "Label qualité",       label: "Label",       emoji: "🏅" },
+      { champ: "Cuisine sur place",   label: "Cuisine",     emoji: "🍽️" },
+      { champ: "Application parents", label: "App parents", emoji: "📱" },
     ];
 
-    const iconHouse = (bg, stroke) => `
-      <div class="card-icon" style="background:${bg};">
-        <svg viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="1.5" width="20" height="20">
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-      </div>`;
+    const iconHouse = (bg, stroke) => `<div class="card-icon" style="background:${bg};"><svg viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="1.5" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>`;
 
-    fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`, {
-      headers: { Authorization: `Bearer ${API_KEY}` }
-    })
-    .then(r => r.json())
-    .then(data => {
-      const container = document.getElementById("places-creches");
-      if (data.error) {
-        container.innerHTML = `<div class="erreur">Erreur : ${data.error.message}</div>`;
-        return;
-      }
-      const visibles = data.records.filter(r => r.fields["Visible sur le site"]);
-      if (!visibles.length) {
-        container.innerHTML = `<p class="vide">Aucune place disponible actuellement.</p>`;
-        return;
-      }
+    function formatMois(val) {
+      const [y, m] = val.split('-');
+      return MOIS_FR[parseInt(m)] + ' ' + y;
+    }
+
+    function getMoisFromDate(dateStr) {
+      if (!dateStr) return '';
+      return dateStr.substring(0, 7);
+    }
+
+    let allRecords = [];
+
+    function populateSelect() {
+      const select = document.getElementById('mois-select');
+      const moisSet = new Set();
+      allRecords.forEach(r => {
+        const d = r.fields["Date de disponibilité"];
+        if (d) moisSet.add(getMoisFromDate(d));
+      });
+      const sorted = Array.from(moisSet).sort();
+      sorted.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = formatMois(m);
+        select.appendChild(opt);
+      });
+    }
+
+    function renderCards(records, moisFilter) {
+      const container = document.getElementById('places-creches');
+      const visibles = records.filter(r => r.fields["Visible sur le site"]);
       const total = visibles.reduce((s, r) => s + (r.fields["Places disponible"] || 0), 0);
-      document.getElementById("total-places").textContent = total;
+      document.getElementById('total-places').textContent = total;
 
-      container.innerHTML = visibles.map(r => {
+      let filtered = visibles;
+      let hasMatch = false;
+
+      if (moisFilter) {
+        filtered = visibles.filter(r => {
+          const mois = getMoisFromDate(r.fields["Date de disponibilité"] || '');
+          return !r.fields["Places disponible"] || mois <= moisFilter;
+        });
+        hasMatch = visibles.some(r => {
+          const mois = getMoisFromDate(r.fields["Date de disponibilité"] || '');
+          const places = r.fields["Places disponible"] || 0;
+          return places > 0 && mois <= moisFilter;
+        });
+      }
+
+      let html = '';
+
+      if (moisFilter && !hasMatch) {
+        html += `<div class="empty-state"><div class="empty-title">Aucune place disponible en ${formatMois(moisFilter)}</div><div class="empty-sub">Voici les prochaines disponibilités dans nos crèches</div></div>`;
+        filtered = visibles;
+      }
+
+      html += filtered.map(r => {
         const f = r.fields;
         const nom = Array.isArray(f["Nom de la crèche"]) ? f["Nom de la crèche"][0] : "Crèche";
         const places = f["Places disponible"] || 0;
@@ -113,67 +154,66 @@
         const ageMin = f["Âge minimum (mois)"] ?? "?";
         const ageMax = f["Âge maximum (mois)"] ?? "?";
 
-        const equipHTML = equipements
-          .filter(e => {
-            const val = f[e.champ];
-            return Array.isArray(val) ? val[0] === true : val === true;
-          })
-          .map(e => `<span class="equip-item"><span class="equip-dot"></span>${e.emoji} ${e.label}</span>`)
-          .join("");
+        const equipHTML = equipements.filter(e => {
+          const val = f[e.champ];
+          return Array.isArray(val) ? val[0] === true : val === true;
+        }).map(e => `<span class="equip-item"><span class="equip-dot"></span>${e.emoji} ${e.label}</span>`).join("");
 
         if (hasPlaces) {
-          return `
-            <div class="card">
-              <div class="card-header">
-                <div>
-                  ${iconHouse("#F5F3FF", "#8A4CFF")}
-                  <div class="card-name">${nom}</div>
-                </div>
-                <span class="badge-places">${places} place${places > 1 ? 's' : ''}</span>
-              </div>
-              <div class="divider"></div>
-              <div class="info-grid">
-                <div class="info-item">
-                  <div class="info-label">Disponible</div>
-                  <div class="info-value">${dispo}</div>
-                </div>
-                <div class="info-item">
-                  <div class="info-label">Tranche d'âge</div>
-                  <div class="info-value">${ageMin} – ${ageMax} mois</div>
-                </div>
-              </div>
-              ${f["Type de contrat"] ? `<span class="tag">${f["Type de contrat"]}</span>` : ""}
-              ${equipHTML ? `<div class="section-label">Services & équipements</div><div class="equipements">${equipHTML}</div>` : ""}
-              ${f["Notes"] ? `<p class="note">${f["Notes"]}</p>` : ""}
-            </div>`;
+          return `<div class="card">
+            <div class="card-header"><div>${iconHouse("#F5F3FF","#8A4CFF")}<div class="card-name">${nom}</div></div><span class="badge-places">${places} place${places>1?'s':''}</span></div>
+            <div class="divider"></div>
+            <div class="info-grid">
+              <div class="info-item"><div class="info-label">Disponible</div><div class="info-value">${dispo}</div></div>
+              <div class="info-item"><div class="info-label">Tranche d'âge</div><div class="info-value">${ageMin} – ${ageMax} mois</div></div>
+            </div>
+            ${f["Type de contrat"] ? `<span class="tag">${f["Type de contrat"]}</span>` : ""}
+            ${equipHTML ? `<div class="section-label">Services & équipements</div><div class="equip-wrap">${equipHTML}</div>` : ""}
+            ${f["Notes"] ? `<p class="note">${f["Notes"]}</p>` : ""}
+          </div>`;
         } else {
-          return `
-            <div class="card card-waiting">
-              <div class="card-header">
-                <div>
-                  ${iconHouse("#F0F0F0", "#AAAAAA")}
-                  <div class="card-name card-name-waiting">${nom}</div>
-                </div>
-                <span class="badge-attente">Liste d'attente</span>
-              </div>
-              <div class="divider" style="background:#EEEEEE;"></div>
-              <div class="info-grid">
-                <div class="info-item" style="background:#F5F5F5;">
-                  <div class="info-label" style="color:#AAA;">Disponible</div>
-                  <div class="info-value" style="color:#AAA;">—</div>
-                </div>
-                <div class="info-item" style="background:#F5F5F5;">
-                  <div class="info-label" style="color:#AAA;">Tranche d'âge</div>
-                  <div class="info-value" style="color:#AAA;">${ageMin} – ${ageMax} mois</div>
-                </div>
-              </div>
-              <p class="note">Aucune place disponible actuellement</p>
-            </div>`;
+          return `<div class="card card-waiting">
+            <div class="card-header"><div>${iconHouse("#F0F0F0","#AAA")}<div class="card-name card-name-w">${nom}</div></div><span class="badge-attente">Liste d'attente</span></div>
+            <div class="divider" style="background:#EEE;"></div>
+            <div class="info-grid">
+              <div class="info-item" style="background:#F5F5F5;"><div class="info-label" style="color:#AAA;">Disponible</div><div class="info-value" style="color:#AAA;">—</div></div>
+              <div class="info-item" style="background:#F5F5F5;"><div class="info-label" style="color:#AAA;">Tranche d'âge</div><div class="info-value" style="color:#AAA;">${ageMin} – ${ageMax} mois</div></div>
+            </div>
+            <p class="note">Aucune place disponible actuellement</p>
+          </div>`;
         }
       }).join("");
+
+      container.innerHTML = html;
+      const nb = filtered.length;
+      document.getElementById('result-label').textContent = nb + ' crèche' + (nb>1?'s':'') + ' affichée' + (nb>1?'s':'');
+    }
+
+    function filtrer() {
+      const val = document.getElementById('mois-select').value;
+      renderCards(allRecords, val);
+    }
+
+    function reset() {
+      document.getElementById('mois-select').value = '';
+      renderCards(allRecords, '');
+    }
+
+    fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`, {
+      headers: { Authorization: `Bearer ${API_KEY}` }
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.error) {
+        document.getElementById('places-creches').innerHTML = `<div class="erreur">Erreur : ${data.error.message}</div>`;
+        return;
+      }
+      allRecords = data.records;
+      populateSelect();
+      renderCards(allRecords, '');
     })
     .catch(err => {
-      document.getElementById("places-creches").innerHTML = `<div class="erreur">Erreur réseau : ${err.message}</div>`;
+      document.getElementById('places-creches').innerHTML = `<div class="erreur">Erreur réseau : ${err.message}</div>`;
     });
   </script>
 </body>
