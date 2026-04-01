@@ -21,7 +21,6 @@
     .card-waiting { background: #FAFAFA; border-color: #E8E8E8; opacity: 0.75; }
     .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
     .card-icon { width: 40px; height: 40px; border-radius: 12px; background: #F5F3FF; display: flex; align-items: center; justify-content: center; }
-    .card-icon svg { width: 20px; height: 20px; }
     .card-name { font-size: 16px; font-weight: 600; color: #2C2C2C; margin-top: 8px; }
     .card-name-waiting { color: #999999; }
     .badge-places { background: #8A4CFF; color: #FFFFFF; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; white-space: nowrap; }
@@ -29,13 +28,14 @@
     .divider { height: 1px; background: #F0EDFF; margin: 14px 0; }
     .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .info-item { background: #F5F3FF; border-radius: 10px; padding: 10px 12px; }
-    .info-item-grey { background: #F5F5F5; }
     .info-label { font-size: 10px; color: #8A4CFF; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
-    .info-label-grey { color: #AAAAAA; }
     .info-value { font-size: 13px; color: #2C2C2C; font-weight: 500; }
-    .info-value-grey { color: #AAAAAA; }
-    .tag { display: inline-block; background: #F5F3FF; color: #8A4CFF; font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid #D4C5FF; margin-right: 6px; }
+    .tag { display: inline-block; background: #F5F3FF; color: #8A4CFF; font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid #D4C5FF; margin-right: 6px; margin-bottom: 6px; }
     .note { font-size: 12px; color: #2C2C2C; opacity: 0.5; margin-top: 12px; font-style: italic; line-height: 1.5; }
+    .equipements { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .equip-item { display: flex; align-items: center; gap: 5px; background: #F5F3FF; border: 1px solid #E0D5FF; border-radius: 20px; padding: 5px 10px; font-size: 11px; color: #2C2C2C; }
+    .equip-dot { width: 6px; height: 6px; border-radius: 50%; background: #8A4CFF; flex-shrink: 0; }
+    .section-label { font-size: 10px; color: #8A4CFF; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; margin-top: 14px; }
     .footer { text-align: center; margin-top: 24px; font-size: 12px; color: #2C2C2C; opacity: 0.4; }
     .vide { text-align: center; padding: 40px; color: #2C2C2C; opacity: 0.5; font-style: italic; }
     .erreur { background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 8px; font-size: 13px; }
@@ -63,12 +63,23 @@
   <div class="footer">Kanedi Kids Luxembourg — kanedikids.lu</div>
 
   <script>
-    const API_KEY = "patdOBeyo0wZcbPHq" + ".1efbb13931cae086a456c61789f44cbaa7cb31e16beaedabf99caf46ba603cd5";
+    const API_KEY = "patdOBeyo0wZcbPHq" + "1efbb13931cae086a456c61789f44cbaa7cb31e16beaedabf99caf46ba603cd5";
     const BASE_ID = "app0zlg67GXNa7xjB";
     const TABLE_ID = "tblLgTCx0aWIP0Pux";
 
-    const iconHouse = (color, stroke) => `
-      <div class="card-icon" style="background:${color};">
+    const equipements = [
+      { champ: "Allaitement accepté", label: "Allaitement accepté", emoji: "🤱" },
+      { champ: "Couches fournies",    label: "Couches fournies",    emoji: "🧷" },
+      { champ: "Caméra",              label: "Caméra",              emoji: "📷" },
+      { champ: "Jardin",              label: "Jardin",              emoji: "🌿" },
+      { champ: "Sorties",             label: "Sorties",             emoji: "🚶" },
+      { champ: "Label qualité",       label: "Label qualité",       emoji: "🏅" },
+      { champ: "Cuisine sur place",   label: "Cuisine sur place",   emoji: "🍽️" },
+      { champ: "Application parents", label: "Application parents", emoji: "📱" },
+    ];
+
+    const iconHouse = (bg, stroke) => `
+      <div class="card-icon" style="background:${bg};">
         <svg viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="1.5" width="20" height="20">
           <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
           <polyline points="9 22 9 12 15 12 15 22"/>
@@ -90,8 +101,8 @@
         container.innerHTML = `<p class="vide">Aucune place disponible actuellement.</p>`;
         return;
       }
-      const totalPlaces = visibles.reduce((sum, r) => sum + (r.fields["Places disponible"] || 0), 0);
-      document.getElementById("total-places").textContent = totalPlaces;
+      const total = visibles.reduce((s, r) => s + (r.fields["Places disponible"] || 0), 0);
+      document.getElementById("total-places").textContent = total;
 
       container.innerHTML = visibles.map(r => {
         const f = r.fields;
@@ -101,6 +112,14 @@
         const dispo = f["Date de disponibilité"] || "—";
         const ageMin = f["Âge minimum (mois)"] ?? "?";
         const ageMax = f["Âge maximum (mois)"] ?? "?";
+
+        const equipHTML = equipements
+          .filter(e => {
+            const val = f[e.champ];
+            return Array.isArray(val) ? val[0] === true : val === true;
+          })
+          .map(e => `<span class="equip-item"><span class="equip-dot"></span>${e.emoji} ${e.label}</span>`)
+          .join("");
 
         if (hasPlaces) {
           return `
@@ -124,6 +143,7 @@
                 </div>
               </div>
               ${f["Type de contrat"] ? `<span class="tag">${f["Type de contrat"]}</span>` : ""}
+              ${equipHTML ? `<div class="section-label">Services & équipements</div><div class="equipements">${equipHTML}</div>` : ""}
               ${f["Notes"] ? `<p class="note">${f["Notes"]}</p>` : ""}
             </div>`;
         } else {
@@ -138,13 +158,13 @@
               </div>
               <div class="divider" style="background:#EEEEEE;"></div>
               <div class="info-grid">
-                <div class="info-item info-item-grey">
-                  <div class="info-label info-label-grey">Disponible</div>
-                  <div class="info-value info-value-grey">—</div>
+                <div class="info-item" style="background:#F5F5F5;">
+                  <div class="info-label" style="color:#AAA;">Disponible</div>
+                  <div class="info-value" style="color:#AAA;">—</div>
                 </div>
-                <div class="info-item info-item-grey">
-                  <div class="info-label info-label-grey">Tranche d'âge</div>
-                  <div class="info-value info-value-grey">${ageMin} – ${ageMax} mois</div>
+                <div class="info-item" style="background:#F5F5F5;">
+                  <div class="info-label" style="color:#AAA;">Tranche d'âge</div>
+                  <div class="info-value" style="color:#AAA;">${ageMin} – ${ageMax} mois</div>
                 </div>
               </div>
               <p class="note">Aucune place disponible actuellement</p>
