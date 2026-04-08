@@ -93,7 +93,11 @@
       const [y, m] = val.split('-');
       return MOIS_FR[parseInt(m)] + ' ' + y;
     }
-
+function formatDate(dateStr) {
+  if (!dateStr || dateStr === '—') return '—';
+  const [y, m, d] = dateStr.split('-');
+  return `${d} ${MOIS_FR[parseInt(m)]} ${y}`;
+    }
     function getMoisFromDate(dateStr) {
       if (!dateStr) return '';
       return dateStr.substring(0, 7);
@@ -150,7 +154,7 @@
         const nom = Array.isArray(f["Nom de la crèche"]) ? f["Nom de la crèche"][0] : "Crèche";
         const places = f["Places disponible"] || 0;
         const hasPlaces = places > 0;
-        const dispo = f["Date de disponibilité"] || "—";
+        const dispo = formatDate(f["Date de disponibilité"]);
         const ageMin = f["Âge minimum (mois)"] ?? "?";
         const ageMax = f["Âge maximum (mois)"] ?? "?";
 
