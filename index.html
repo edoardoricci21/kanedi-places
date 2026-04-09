@@ -223,9 +223,21 @@
         }
 
         if (hasPlaces) {
-          html += "<div class=\"card\"><div class=\"card-top-bar\"></div><div class=\"card-body\">";
-          html += "<div class=\"card-head\"><div class=\"card-left\"><div class=\"avatar\">" + houseIcon("#8A4CFF") + "</div>";
-          html += "<span class=\"cname\">" + nom + "</span></div>";
+var photoUrl = "";
+if (f["Photo cr\u00e8che"] && Array.isArray(f["Photo cr\u00e8che"]) && f["Photo cr\u00e8che"][0]) {
+  var photoField = f["Photo cr\u00e8che"][0];
+  if (Array.isArray(photoField) && photoField[0] && photoField[0].url) {
+    photoUrl = photoField[0].url;
+  } else if (photoField.url) {
+    photoUrl = photoField.url;
+  }
+}
+var avatarHTML = photoUrl
+  ? "<div class=\"avatar\" style=\"background:#F5F3FF;overflow:hidden;\"><img src=\"" + photoUrl + "\" style=\"width:36px;height:36px;object-fit:cover;border-radius:10px;\" /></div>"
+  : "<div class=\"avatar\">" + houseIcon("#8A4CFF") + "</div>";
+
+html += "<div class=\"card-head\"><div class=\"card-left\">" + avatarHTML;
+html += "<span class=\"cname\">" + nom + "</span></div>";
           html += "<span class=\"badge bp\">" + places + " place" + (places > 1 ? "s" : "") + "</span></div>";
           html += "<div class=\"date-chip\"><div class=\"date-chip-icon\">" + calIcon("#fff") + "</div>";
           html += "<div><div class=\"date-chip-label\">Date de disponibilit\u00e9</div>";
