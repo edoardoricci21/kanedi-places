@@ -223,14 +223,26 @@
         }
 
         if (hasPlaces) {
-var photoUrl = "";
-if (f["Photo cr\u00e8che"] && Array.isArray(f["Photo cr\u00e8che"]) && f["Photo cr\u00e8che"][0]) {
-  var photoField = f["Photo cr\u00e8che"][0];
-  if (Array.isArray(photoField) && photoField[0] && photoField[0].url) {
-    photoUrl = photoField[0].url;
-  } else if (photoField.url) {
-    photoUrl = photoField.url;
+  var photoHTML = "";
+  if (f["Photo cr\u00e8che"] && Array.isArray(f["Photo cr\u00e8che"]) && f["Photo cr\u00e8che"][0]) {
+    var p = f["Photo cr\u00e8che"][0];
+    var url = Array.isArray(p) && p[0] && p[0].url ? p[0].url : (p.url ? p.url : "");
+    if (url) photoHTML = "<img class=\"card-photo\" src=\"" + url + "\" alt=\"" + nom + "\" />";
   }
+  if (!photoHTML) photoHTML = "<div class=\"card-photo-placeholder\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#C4B5FD\" stroke-width=\"1\" width=\"40\" height=\"40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>";
+
+  html += "<div class=\"card\">" + photoHTML;
+  html += "<div class=\"card-badge-wrap\"><span class=\"badge bp\">" + places + " place" + (places > 1 ? "s" : "") + "</span></div>";
+  html += "<div class=\"card-body\">";
+  html += "<div class=\"cname\" style=\"margin-bottom:14px;\">" + nom + "</div>";
+  html += "<div class=\"date-chip\"><div class=\"date-chip-icon\">" + calIcon("#fff") + "</div>";
+  html += "<div><div class=\"date-chip-label\">Date de disponibilit\u00e9</div><div class=\"date-chip-val\">" + dispo + "</div></div></div>";
+  html += "<div class=\"row2\"><div class=\"ibox\"><div class=\"ilbl\">Tranche d\u2019\u00e2ge</div><div class=\"ival\">" + ageMin + " \u2013 " + ageMax + " mois</div></div>";
+  html += "<div class=\"ibox\"><div class=\"ilbl\">Contrat</div><div class=\"ival\">" + contrat + "</div></div></div>";
+  if (equipHTML) { html += "<div class=\"elbl\">Services &amp; \u00e9quipements</div><div class=\"epills\">" + equipHTML + "</div>"; }
+  if (f["Notes"]) { html += "<p class=\"note\">" + f["Notes"] + "</p>"; }
+  html += "</div></div>";
+}
 }
 var avatarHTML = photoUrl
   ? "<div class=\"avatar\" style=\"background:#F5F3FF;overflow:hidden;\"><img src=\"" + photoUrl + "\" style=\"width:36px;height:36px;object-fit:cover;border-radius:10px;\" /></div>"
