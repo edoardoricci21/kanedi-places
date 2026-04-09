@@ -272,7 +272,10 @@
         document.getElementById("places-creches").innerHTML = "<div class=\"erreur\">Erreur : " + data.error.message + "</div>";
         return;
       }
-      allRecords = data.records;
+     if (data.records && data.records[0]) {
+  var photoField = data.records[0].fields["Photo cr\u00e8che"];
+  document.getElementById("filter-info").textContent = "DEBUG PHOTO: " + JSON.stringify(photoField).substring(0, 200);
+}
       buildMonthBtns();
       renderCards();
     })
