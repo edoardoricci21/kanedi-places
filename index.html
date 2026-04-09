@@ -211,7 +211,7 @@
         var dispo = formatDate(f["Date de disponibilit\u00e9"]);
         var ageMin = f["\u00c2ge minimum (mois)"] !== undefined ? f["\u00c2ge minimum (mois)"] : "?";
         var ageMax = f["\u00c2ge maximum (mois)"] !== undefined ? f["\u00c2ge maximum (mois)"] : "?";
-        var contrat = f["Type de contrat"] || "\u2014";
+        var contrat = Array.isArray(f["Type de contrat"]) ? f["Type de contrat"].join(" + ") : (f["Type de contrat"] || "\u2014");
 
         var equipHTML = "";
         for (var e = 0; e < equipements.length; e++) {
