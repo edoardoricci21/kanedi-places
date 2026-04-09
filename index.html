@@ -27,28 +27,26 @@
     .month-btn.active .dot-count{background:#8A4CFF;color:#fff}
     .reset-btn{background:transparent;border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:7px 12px;font-size:11px;color:rgba(255,255,255,0.6);cursor:pointer;white-space:nowrap}
     .filter-info{font-size:11px;color:rgba(255,255,255,0.5);margin-top:10px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
     .card{background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #EDE8FF}
-    .card-top-bar{height:4px;background:#8A4CFF}
-    .card-top-bar-grey{height:4px;background:#E8E8E8}
-    .card-body{padding:20px}
     .card-waiting{background:#FAFAFA;border-color:#EBEBEB;opacity:0.65}
-    .card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-    .card-left{display:flex;align-items:center;gap:10px}
-    .avatar{width:36px;height:36px;border-radius:10px;background:#F5F3FF;display:flex;align-items:center;justify-content:center}
-    .avatar-grey{background:#F0F0F0}
-    .cname{font-size:15px;font-weight:600;color:#2C2C2C}
-    .cname-grey{color:#AAAAAA}
-    .badge{font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;white-space:nowrap}
+    .card-photo{width:100%;height:160px;object-fit:cover;display:block}
+    .card-photo-placeholder{width:100%;height:160px;background:#F5F3FF;display:flex;align-items:center;justify-content:center}
+    .card-photo-placeholder-grey{background:#F0F0F0}
+    .card-badge-wrap{position:relative;margin-top:-18px;padding:0 20px;margin-bottom:4px;display:flex;justify-content:flex-end}
+    .badge{font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;white-space:nowrap;border:2px solid #fff}
     .bp{background:#8A4CFF;color:#fff}
-    .bw{background:#F0EDFF;color:#8A4CFF;border:1px solid #D4C5FF}
+    .bw{background:#F0EDFF;color:#8A4CFF}
+    .card-body{padding:16px 20px 20px}
+    .cname{font-size:16px;font-weight:700;color:#2C2C2C;margin-bottom:14px}
+    .cname-grey{color:#AAAAAA}
     .date-chip{display:flex;align-items:center;gap:10px;background:#F5F3FF;border:1px solid #E0D5FF;border-radius:12px;padding:10px 14px;margin-bottom:12px}
     .date-chip-grey{background:#F5F5F5;border-color:#E8E8E8}
-    .date-chip-icon{width:32px;height:32px;border-radius:8px;background:#8A4CFF;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .date-chip-icon{width:30px;height:30px;border-radius:8px;background:#8A4CFF;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .date-chip-icon-grey{background:#DDDDDD}
-    .date-chip-label{font-size:9px;color:#8A4CFF;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px}
+    .date-chip-label{font-size:9px;color:#8A4CFF;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:2px}
     .date-chip-label-grey{color:#BBBBBB}
-    .date-chip-val{font-size:14px;color:#2C2C2C;font-weight:600}
+    .date-chip-val{font-size:13px;color:#2C2C2C;font-weight:600}
     .date-chip-val-grey{color:#BBBBBB}
     .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
     .ibox{background:#F5F3FF;border-radius:10px;padding:9px 12px}
@@ -60,7 +58,6 @@
     .elbl{font-size:9px;font-weight:700;color:#8A4CFF;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:7px}
     .epills{display:flex;flex-wrap:wrap;gap:5px}
     .epill{display:inline-flex;align-items:center;gap:5px;background:#F5F3FF;border:1px solid #E8E0FF;border-radius:20px;padding:4px 10px;font-size:11px;color:#2C2C2C}
-    .edot{width:5px;height:5px;border-radius:50%;background:#8A4CFF;flex-shrink:0}
     .note{font-size:11px;color:#2C2C2C;opacity:0.4;margin-top:12px;font-style:italic;padding-top:12px;border-top:1px solid #F0EDFF}
     .empty-state{background:#fff;border-radius:20px;padding:40px;text-align:center;border:1.5px solid #EDE8FF;grid-column:1/-1}
     .empty-title{font-size:16px;font-weight:600;color:#8A4CFF;margin-bottom:6px}
@@ -68,10 +65,6 @@
     .footer{text-align:center;margin-top:20px;font-size:11px;color:#2C2C2C;opacity:0.3;letter-spacing:0.3px}
     .vide{text-align:center;padding:40px;color:#2C2C2C;opacity:0.5;font-style:italic}
     .erreur{background:#fff3cd;border:1px solid #ffc107;padding:12px;border-radius:8px;font-size:13px}
-    .card-photo{width:100%;height:160px;object-fit:cover;display:block}
-.card-photo-placeholder{width:100%;height:160px;background:#F5F3FF;display:flex;align-items:center;justify-content:center}
-.card-badge-wrap{position:relative;margin-top:-18px;padding:0 20px;margin-bottom:4px;display:flex;justify-content:flex-end}
-.badge{border:2px solid #fff}
   </style>
 </head>
 <body>
@@ -95,7 +88,7 @@
   <div class="footer">Kanedi Kids Luxembourg &#8212; kanedikids.lu</div>
 
   <script>
-    var API_KEY = "patmEpKEUtltQQ2hm" + ".60aa67be770361e1895e3c169be5ccd0ad8ebb411824426f9dc37b43d4b00e1e";
+    var API_KEY = "patsR04DlXxni2Vgd" + ".6566ec9314600b55d6518ae346d76abd08425a224452a88d989251a52b8654a8";
     var BASE_ID = "app0zlg67GXNa7xjB";
     var TABLE_ID = "tblLgTCx0aWIP0Pux";
     var MOIS = ["","Janvier","F\u00e9vrier","Mars","Avril","Mai","Juin","Juillet","Ao\u00fbt","Septembre","Octobre","Novembre","D\u00e9cembre"];
@@ -112,11 +105,7 @@
     ];
 
     function calIcon(stroke) {
-      return "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"" + stroke + "\" stroke-width=\"2\" width=\"16\" height=\"16\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"/><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"/></svg>";
-    }
-
-    function houseIcon(stroke) {
-      return "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"" + stroke + "\" stroke-width=\"1.5\" width=\"18\" height=\"18\"><path d=\"M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>";
+      return "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"" + stroke + "\" stroke-width=\"2\" width=\"14\" height=\"14\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"/><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"/></svg>";
     }
 
     function getMois(d) { return d ? d.substring(0, 7) : ""; }
@@ -130,6 +119,18 @@
       if (!d) return "Non communiqu\u00e9e";
       var parts = d.split("-");
       return parseInt(parts[2]) + " " + MOIS[parseInt(parts[1])] + " " + parts[0];
+    }
+
+    function getPhotoUrl(f) {
+      var field = f["Photo cr\u00e8che"];
+      if (!field) return "";
+      if (Array.isArray(field) && field.length > 0) {
+        var item = field[0];
+        if (Array.isArray(item) && item.length > 0 && item[0].url) return item[0].url;
+        if (item && item.url) return item.url;
+        if (item && item.thumbnails && item.thumbnails.large) return item.thumbnails.large.url;
+      }
+      return "";
     }
 
     var allRecords = [];
@@ -216,6 +217,7 @@
         var ageMin = f["\u00c2ge minimum (mois)"] !== undefined ? f["\u00c2ge minimum (mois)"] : "?";
         var ageMax = f["\u00c2ge maximum (mois)"] !== undefined ? f["\u00c2ge maximum (mois)"] : "?";
         var contrat = Array.isArray(f["Type de contrat"]) ? f["Type de contrat"].join(" + ") : (f["Type de contrat"] || "\u2014");
+        var photoUrl = getPhotoUrl(f);
 
         var equipHTML = "";
         for (var e = 0; e < equipements.length; e++) {
@@ -226,53 +228,32 @@
           }
         }
 
+        var photoHTML = photoUrl
+          ? "<img class=\"card-photo\" src=\"" + photoUrl + "\" alt=\"" + nom + "\" />"
+          : "<div class=\"card-photo-placeholder\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#C4B5FD\" stroke-width=\"1\" width=\"40\" height=\"40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>";
+
         if (hasPlaces) {
-  var photoHTML = "";
-  if (f["Photo cr\u00e8che"] && Array.isArray(f["Photo cr\u00e8che"]) && f["Photo cr\u00e8che"][0]) {
-    var p = f["Photo cr\u00e8che"][0];
-    var url = Array.isArray(p) && p[0] && p[0].url ? p[0].url : (p.url ? p.url : "");
-    if (url) photoHTML = "<img class=\"card-photo\" src=\"" + url + "\" alt=\"" + nom + "\" />";
-  }
-  if (!photoHTML) photoHTML = "<div class=\"card-photo-placeholder\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#C4B5FD\" stroke-width=\"1\" width=\"40\" height=\"40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>";
-
-  html += "<div class=\"card\">" + photoHTML;
-  html += "<div class=\"card-badge-wrap\"><span class=\"badge bp\">" + places + " place" + (places > 1 ? "s" : "") + "</span></div>";
-  html += "<div class=\"card-body\">";
-  html += "<div class=\"cname\" style=\"margin-bottom:14px;\">" + nom + "</div>";
-  html += "<div class=\"date-chip\"><div class=\"date-chip-icon\">" + calIcon("#fff") + "</div>";
-  html += "<div><div class=\"date-chip-label\">Date de disponibilit\u00e9</div><div class=\"date-chip-val\">" + dispo + "</div></div></div>";
-  html += "<div class=\"row2\"><div class=\"ibox\"><div class=\"ilbl\">Tranche d\u2019\u00e2ge</div><div class=\"ival\">" + ageMin + " \u2013 " + ageMax + " mois</div></div>";
-  html += "<div class=\"ibox\"><div class=\"ilbl\">Contrat</div><div class=\"ival\">" + contrat + "</div></div></div>";
-  if (equipHTML) { html += "<div class=\"elbl\">Services &amp; \u00e9quipements</div><div class=\"epills\">" + equipHTML + "</div>"; }
-  if (f["Notes"]) { html += "<p class=\"note\">" + f["Notes"] + "</p>"; }
-  html += "</div></div>";
-}
-}
-var avatarHTML = photoUrl
-  ? "<div class=\"avatar\" style=\"background:#F5F3FF;overflow:hidden;\"><img src=\"" + photoUrl + "\" style=\"width:36px;height:36px;object-fit:cover;border-radius:10px;\" /></div>"
-  : "<div class=\"avatar\">" + houseIcon("#8A4CFF") + "</div>";
-
-html += "<div class=\"card-head\"><div class=\"card-left\">" + avatarHTML;
-html += "<span class=\"cname\">" + nom + "</span></div>";
-          html += "<span class=\"badge bp\">" + places + " place" + (places > 1 ? "s" : "") + "</span></div>";
+          html += "<div class=\"card\">" + photoHTML;
+          html += "<div class=\"card-badge-wrap\"><span class=\"badge bp\">" + places + " place" + (places > 1 ? "s" : "") + "</span></div>";
+          html += "<div class=\"card-body\">";
+          html += "<div class=\"cname\">" + nom + "</div>";
           html += "<div class=\"date-chip\"><div class=\"date-chip-icon\">" + calIcon("#fff") + "</div>";
-          html += "<div><div class=\"date-chip-label\">Date de disponibilit\u00e9</div>";
-          html += "<div class=\"date-chip-val\">" + dispo + "</div></div></div>";
+          html += "<div><div class=\"date-chip-label\">Date de disponibilit\u00e9</div><div class=\"date-chip-val\">" + dispo + "</div></div></div>";
           html += "<div class=\"row2\"><div class=\"ibox\"><div class=\"ilbl\">Tranche d\u2019\u00e2ge</div><div class=\"ival\">" + ageMin + " \u2013 " + ageMax + " mois</div></div>";
           html += "<div class=\"ibox\"><div class=\"ilbl\">Contrat</div><div class=\"ival\">" + contrat + "</div></div></div>";
-          if (equipHTML) {
-            html += "<div class=\"elbl\">Services &amp; \u00e9quipements</div><div class=\"epills\">" + equipHTML + "</div>";
-          }
+          if (equipHTML) { html += "<div class=\"elbl\">Services &amp; \u00e9quipements</div><div class=\"epills\">" + equipHTML + "</div>"; }
           if (f["Notes"]) { html += "<p class=\"note\">" + f["Notes"] + "</p>"; }
           html += "</div></div>";
         } else {
-          html += "<div class=\"card card-waiting\"><div class=\"card-top-bar-grey\"></div><div class=\"card-body\">";
-          html += "<div class=\"card-head\"><div class=\"card-left\"><div class=\"avatar avatar-grey\">" + houseIcon("#BBBBBB") + "</div>";
-          html += "<span class=\"cname cname-grey\">" + nom + "</span></div>";
-          html += "<span class=\"badge bw\">Liste d\u2019attente</span></div>";
+          var photoWaitHTML = photoUrl
+            ? "<img class=\"card-photo\" src=\"" + photoUrl + "\" alt=\"" + nom + "\" style=\"filter:grayscale(100%);opacity:0.5;\" />"
+            : "<div class=\"card-photo-placeholder card-photo-placeholder-grey\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#CCCCCC\" stroke-width=\"1\" width=\"40\" height=\"40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>";
+          html += "<div class=\"card card-waiting\">" + photoWaitHTML;
+          html += "<div class=\"card-badge-wrap\"><span class=\"badge bw\">Liste d\u2019attente</span></div>";
+          html += "<div class=\"card-body\">";
+          html += "<div class=\"cname cname-grey\">" + nom + "</div>";
           html += "<div class=\"date-chip date-chip-grey\"><div class=\"date-chip-icon date-chip-icon-grey\">" + calIcon("#BBBBBB") + "</div>";
-          html += "<div><div class=\"date-chip-label date-chip-label-grey\">Date de disponibilit\u00e9</div>";
-          html += "<div class=\"date-chip-val date-chip-val-grey\">Non communiqu\u00e9e</div></div></div>";
+          html += "<div><div class=\"date-chip-label date-chip-label-grey\">Date de disponibilit\u00e9</div><div class=\"date-chip-val date-chip-val-grey\">Non communiqu\u00e9e</div></div></div>";
           html += "<div class=\"row2\"><div class=\"ibox ibox-grey\"><div class=\"ilbl ilbl-grey\">Tranche d\u2019\u00e2ge</div><div class=\"ival ival-grey\">" + ageMin + " \u2013 " + ageMax + " mois</div></div>";
           html += "<div class=\"ibox ibox-grey\"><div class=\"ilbl ilbl-grey\">Contrat</div><div class=\"ival ival-grey\">\u2014</div></div></div>";
           html += "<p style=\"font-size:12px;color:#BBBBBB;font-style:italic;\">Aucune place disponible actuellement</p>";
