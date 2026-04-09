@@ -88,7 +88,7 @@
   <div class="footer">Kanedi Kids Luxembourg &#8212; kanedikids.lu</div>
 
   <script>
-    var API_KEY = "patsR04DlXxni2Vgd" + ".6566ec9314600b55d6518ae346d76abd08425a224452a88d989251a52b8654a8";
+    var API_KEY = "patiGHRP4SVhM1cVg" + ".61aaefed4f45bc45759d1a3d2fa96d793a1fa4cb22d0029fc32d2d18d24f98a3";
     var BASE_ID = "app0zlg67GXNa7xjB";
     var TABLE_ID = "tblLgTCx0aWIP0Pux";
     var MOIS = ["","Janvier","F\u00e9vrier","Mars","Avril","Mai","Juin","Juillet","Ao\u00fbt","Septembre","Octobre","Novembre","D\u00e9cembre"];
@@ -272,9 +272,7 @@
         document.getElementById("places-creches").innerHTML = "<div class=\"erreur\">Erreur : " + data.error.message + "</div>";
         return;
       }
-     if (data.records && data.records[0]) {
-  var photoField = data.records[0].fields["Photo cr\u00e8che"];
-  document.getElementById("filter-info").textContent = "DEBUG PHOTO: " + JSON.stringify(photoField).substring(0, 200);
+     allRecords = data.records; 
 }
       buildMonthBtns();
       renderCards();
