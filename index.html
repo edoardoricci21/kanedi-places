@@ -5,220 +5,270 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Places disponibles — Kanedi Kids</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', sans-serif; background: #F5F3FF; padding: 28px; color: #2C2C2C; }
-    .header { background: #8A4CFF; border-radius: 20px; padding: 28px 32px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-    .header-left h1 { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-    .header-live { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.15); border-radius: 20px; padding: 5px 12px; }
-    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: pulse 1.5s infinite; }
-    .live-text { font-size: 12px; color: rgba(255,255,255,0.9); }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    .stat-num { font-size: 36px; font-weight: 700; color: #fff; line-height: 1; text-align: right; }
-    .stat-label { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px; text-align: right; }
-    .filter-bar { background: #fff; border-radius: 16px; padding: 16px 20px; margin-bottom: 20px; border: 1.5px solid #EDE8FF; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .filter-label { font-size: 13px; font-weight: 600; color: #8A4CFF; white-space: nowrap; }
-    .filter-select { background: #F5F3FF; border: 1.5px solid #D4C5FF; border-radius: 10px; padding: 8px 32px 8px 14px; font-size: 13px; color: #2C2C2C; cursor: pointer; flex: 1; min-width: 160px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%238A4CFF' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
-    .filter-reset { background: transparent; border: 1.5px solid #D4C5FF; border-radius: 10px; padding: 8px 14px; font-size: 12px; color: #8A4CFF; cursor: pointer; white-space: nowrap; }
-    .filter-result { font-size: 12px; color: #2C2C2C; opacity: 0.5; margin-left: auto; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-    .card { background: #fff; border-radius: 18px; padding: 22px; border: 1.5px solid #EDE8FF; }
-    .card-waiting { background: #FAFAFA; border-color: #E8E8E8; opacity: 0.7; }
-    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-    .card-icon { width: 40px; height: 40px; border-radius: 12px; background: #F5F3FF; display: flex; align-items: center; justify-content: center; }
-    .card-name { font-size: 15px; font-weight: 600; color: #2C2C2C; margin-top: 8px; }
-    .card-name-w { color: #999; }
-    .badge-places { background: #8A4CFF; color: #fff; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; white-space: nowrap; }
-    .badge-attente { background: #F0EDFF; color: #8A4CFF; font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 1px solid #D4C5FF; white-space: nowrap; }
-    .divider { height: 1px; background: #F0EDFF; margin: 14px 0; }
-    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-    .info-item { background: #F5F3FF; border-radius: 10px; padding: 10px 12px; }
-    .info-label { font-size: 10px; color: #8A4CFF; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
-    .info-value { font-size: 13px; color: #2C2C2C; font-weight: 500; }
-    .tag { display: inline-block; background: #F5F3FF; color: #8A4CFF; font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid #D4C5FF; margin-right: 6px; margin-bottom: 6px; }
-    .section-label { font-size: 10px; color: #8A4CFF; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; margin-top: 12px; }
-    .equip-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
-    .equip-item { display: inline-flex; align-items: center; gap: 5px; background: #F5F3FF; border: 1px solid #E0D5FF; border-radius: 20px; padding: 4px 10px; font-size: 11px; color: #2C2C2C; }
-    .equip-dot { width: 5px; height: 5px; border-radius: 50%; background: #8A4CFF; flex-shrink: 0; }
-    .note { font-size: 12px; color: #2C2C2C; opacity: 0.5; margin-top: 10px; font-style: italic; }
-    .empty-state { background: #fff; border-radius: 18px; padding: 32px; text-align: center; border: 1.5px solid #EDE8FF; grid-column: 1/-1; }
-    .empty-title { font-size: 16px; font-weight: 600; color: #8A4CFF; margin-bottom: 6px; }
-    .empty-sub { font-size: 13px; color: #2C2C2C; opacity: 0.5; }
-    .footer { text-align: center; margin-top: 20px; font-size: 12px; color: #2C2C2C; opacity: 0.35; }
-    .vide { text-align: center; padding: 40px; color: #2C2C2C; opacity: 0.5; font-style: italic; }
-    .erreur { background: #fff3cd; border: 1px solid #ffc107; padding: 12px; border-radius: 8px; font-size: 13px; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',sans-serif;background:#F5F3FF;padding:28px;color:#2C2C2C}
+    .hero{background:#8A4CFF;border-radius:24px;padding:32px 36px;margin-bottom:24px}
+    .hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+    .hero-title{font-size:26px;font-weight:700;color:#fff;letter-spacing:-0.5px;margin-bottom:6px}
+    .hero-live{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 14px}
+    .live-dot{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 1.5s infinite}
+    .live-text{font-size:11px;color:rgba(255,255,255,0.9);letter-spacing:0.3px}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+    .stat-big{font-size:48px;font-weight:700;color:#fff;line-height:1;letter-spacing:-2px;text-align:right}
+    .stat-sub{font-size:11px;color:rgba(255,255,255,0.6);margin-top:4px;text-align:right;text-transform:uppercase;letter-spacing:0.5px}
+    .divider-hero{height:1px;background:rgba(255,255,255,0.15);margin:20px 0}
+    .timeline-nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .nav-label{font-size:12px;color:rgba(255,255,255,0.7);margin-right:4px;white-space:nowrap}
+    .months-row{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+    .month-btn{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:7px 14px;font-size:12px;color:rgba(255,255,255,0.75);cursor:pointer;white-space:nowrap}
+    .month-btn.active{background:#fff;color:#8A4CFF;font-weight:600;border-color:#fff}
+    .month-btn.has-places{border-color:rgba(255,255,255,0.4)}
+    .dot-count{display:inline-block;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.25);font-size:9px;font-weight:700;line-height:16px;text-align:center;margin-left:5px;vertical-align:middle}
+    .month-btn.active .dot-count{background:#8A4CFF;color:#fff}
+    .reset-btn{background:transparent;border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:7px 12px;font-size:11px;color:rgba(255,255,255,0.6);cursor:pointer;white-space:nowrap}
+    .filter-info{font-size:11px;color:rgba(255,255,255,0.5);margin-top:10px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+    .card{background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #EDE8FF}
+    .card-top-bar{height:4px;background:#8A4CFF}
+    .card-top-bar-grey{height:4px;background:#E8E8E8}
+    .card-body{padding:20px}
+    .card-waiting{background:#FAFAFA;border-color:#EBEBEB;opacity:0.65}
+    .card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    .card-left{display:flex;align-items:center;gap:10px}
+    .avatar{width:36px;height:36px;border-radius:10px;background:#F5F3FF;display:flex;align-items:center;justify-content:center}
+    .avatar-grey{background:#F0F0F0}
+    .cname{font-size:15px;font-weight:600;color:#2C2C2C}
+    .cname-grey{color:#AAAAAA}
+    .badge{font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;white-space:nowrap}
+    .bp{background:#8A4CFF;color:#fff}
+    .bw{background:#F0EDFF;color:#8A4CFF;border:1px solid #D4C5FF}
+    .date-chip{display:flex;align-items:center;gap:10px;background:#F5F3FF;border:1px solid #E0D5FF;border-radius:12px;padding:10px 14px;margin-bottom:12px}
+    .date-chip-grey{background:#F5F5F5;border-color:#E8E8E8}
+    .date-chip-icon{width:32px;height:32px;border-radius:8px;background:#8A4CFF;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .date-chip-icon-grey{background:#DDDDDD}
+    .date-chip-label{font-size:9px;color:#8A4CFF;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px}
+    .date-chip-label-grey{color:#BBBBBB}
+    .date-chip-val{font-size:14px;color:#2C2C2C;font-weight:600}
+    .date-chip-val-grey{color:#BBBBBB}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+    .ibox{background:#F5F3FF;border-radius:10px;padding:9px 12px}
+    .ibox-grey{background:#F5F5F5}
+    .ilbl{font-size:9px;font-weight:700;color:#8A4CFF;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px}
+    .ilbl-grey{color:#BBBBBB}
+    .ival{font-size:13px;color:#2C2C2C;font-weight:500}
+    .ival-grey{color:#BBBBBB}
+    .elbl{font-size:9px;font-weight:700;color:#8A4CFF;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:7px}
+    .epills{display:flex;flex-wrap:wrap;gap:5px}
+    .epill{display:inline-flex;align-items:center;gap:5px;background:#F5F3FF;border:1px solid #E8E0FF;border-radius:20px;padding:4px 10px;font-size:11px;color:#2C2C2C}
+    .edot{width:5px;height:5px;border-radius:50%;background:#8A4CFF;flex-shrink:0}
+    .note{font-size:11px;color:#2C2C2C;opacity:0.4;margin-top:12px;font-style:italic;padding-top:12px;border-top:1px solid #F0EDFF}
+    .empty-state{background:#fff;border-radius:20px;padding:40px;text-align:center;border:1.5px solid #EDE8FF;grid-column:1/-1}
+    .empty-title{font-size:16px;font-weight:600;color:#8A4CFF;margin-bottom:6px}
+    .empty-sub{font-size:13px;color:#2C2C2C;opacity:0.45}
+    .footer{text-align:center;margin-top:20px;font-size:11px;color:#2C2C2C;opacity:0.3;letter-spacing:0.3px}
+    .vide{text-align:center;padding:40px;color:#2C2C2C;opacity:0.5;font-style:italic}
+    .erreur{background:#fff3cd;border:1px solid #ffc107;padding:12px;border-radius:8px;font-size:13px}
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="header-left">
-      <h1>Places disponibles</h1>
-      <div class="header-live"><span class="live-dot"></span><span class="live-text">Mis à jour en temps réel — Kanedi Kids</span></div>
+  <div class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="hero-title">Places disponibles</div>
+        <div class="hero-live"><span class="live-dot"></span><span class="live-text">Mis &#224; jour en temps r&#233;el &#8212; Kanedi Kids</span></div>
+      </div>
+      <div><div class="stat-big" id="total-places">&#8212;</div><div class="stat-sub">places dispo</div></div>
     </div>
-    <div><div class="stat-num" id="total-places">—</div><div class="stat-label">places disponibles</div></div>
+    <div class="divider-hero"></div>
+    <div class="timeline-nav">
+      <span class="nav-label">Disponible en</span>
+      <div class="months-row" id="months-row"></div>
+      <button class="reset-btn" onclick="reset()">Tout voir</button>
+    </div>
+    <div class="filter-info" id="filter-info">Toutes les cr&#232;ches &#8212; s&#233;lectionnez un mois pour filtrer</div>
   </div>
-
-  <div class="filter-bar">
-    <span class="filter-label">Disponible en</span>
-    <select class="filter-select" id="mois-select" onchange="filtrer()">
-      <option value="">Tous les mois</option>
-    </select>
-    <button class="filter-reset" onclick="reset()">Réinitialiser</button>
-    <span class="filter-result" id="result-label"></span>
-  </div>
-
   <div id="places-creches" class="grid"><p class="vide">Chargement...</p></div>
-  <div class="footer">Kanedi Kids Luxembourg — kanedikids.lu</div>
+  <div class="footer">Kanedi Kids Luxembourg &#8212; kanedikids.lu</div>
 
   <script>
-    const API_KEY = "pattPIYVo8Hnsml83" + ".537bfaff112ee81afb86103673dcc390b17778fe3a2c8a7c3c283a2411837ca8";
-    const BASE_ID = "app0zlg67GXNa7xjB";
-    const TABLE_ID = "tblLgTCx0aWIP0Pux";
+    var API_KEY = "patmEpKEUtltQQ2hm" + ".60aa67be770361e1895e3c169be5ccd0ad8ebb411824426f9dc37b43d4b00e1e";
+    var BASE_ID = "app0zlg67GXNa7xjB";
+    var TABLE_ID = "tblLgTCx0aWIP0Pux";
+    var MOIS = ["","Janvier","F\u00e9vrier","Mars","Avril","Mai","Juin","Juillet","Ao\u00fbt","Septembre","Octobre","Novembre","D\u00e9cembre"];
 
-    const MOIS_FR = ['','Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-
-    const equipements = [
-      { champ: "Allaitement accepté", label: "Allaitement", emoji: "🤱" },
-      { champ: "Couches fournies",    label: "Couches",     emoji: "🧷" },
-      { champ: "Caméra",              label: "Caméra",      emoji: "📷" },
-      { champ: "Jardin",              label: "Jardin",      emoji: "🌿" },
-      { champ: "Sorties",             label: "Sorties",     emoji: "🚶" },
-      { champ: "Label qualité",       label: "Label",       emoji: "🏅" },
-      { champ: "Cuisine sur place",   label: "Cuisine",     emoji: "🍽️" },
-      { champ: "Application parents", label: "App parents", emoji: "📱" },
+    var equipements = [
+      { champ: "Allaitement accept\u00e9", label: "Allaitement", emoji: "\ud83e\udd31" },
+      { champ: "Couches fournies", label: "Couches", emoji: "\ud83e\uddf7" },
+      { champ: "Cam\u00e9ra", label: "Cam\u00e9ra", emoji: "\ud83d\udcf7" },
+      { champ: "Jardin", label: "Jardin", emoji: "\ud83c\udf3f" },
+      { champ: "Sorties", label: "Sorties", emoji: "\ud83d\udeb6" },
+      { champ: "Label qualit\u00e9", label: "Label", emoji: "\ud83c\udfc5" },
+      { champ: "Cuisine sur place", label: "Cuisine", emoji: "\ud83c\udf7d\ufe0f" },
+      { champ: "Application parents", label: "App parents", emoji: "\ud83d\udcf1" }
     ];
 
-    const iconHouse = (bg, stroke) => `<div class="card-icon" style="background:${bg};"><svg viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="1.5" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>`;
-
-    function formatMois(val) {
-      const [y, m] = val.split('-');
-      return MOIS_FR[parseInt(m)] + ' ' + y;
-    }
-function formatDate(dateStr) {
-  if (!dateStr || dateStr === '—') return '—';
-  const [y, m, d] = dateStr.split('-');
-  return `${d} ${MOIS_FR[parseInt(m)]} ${y}`;
-    }
-    
-    function getMoisFromDate(dateStr) {
-      if (!dateStr) return '';
-      return dateStr.substring(0, 7);
+    function calIcon(stroke) {
+      return "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"" + stroke + "\" stroke-width=\"2\" width=\"16\" height=\"16\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"/><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"/></svg>";
     }
 
-    let allRecords = [];
-
-    function populateSelect() {
-      const select = document.getElementById('mois-select');
-      const moisSet = new Set();
-      allRecords.forEach(r => {
-        const d = r.fields["Date de disponibilité"];
-        if (d) moisSet.add(getMoisFromDate(d));
-      });
-      const sorted = Array.from(moisSet).sort();
-      sorted.forEach(m => {
-        const opt = document.createElement('option');
-        opt.value = m;
-        opt.textContent = formatMois(m);
-        select.appendChild(opt);
-      });
+    function houseIcon(stroke) {
+      return "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"" + stroke + "\" stroke-width=\"1.5\" width=\"18\" height=\"18\"><path d=\"M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>";
     }
 
-    function renderCards(records, moisFilter) {
-      const container = document.getElementById('places-creches');
-      const visibles = records.filter(r => r.fields["Visible sur le site"]);
-      const total = visibles.reduce((s, r) => s + (r.fields["Places disponible"] || 0), 0);
-      document.getElementById('total-places').textContent = total;
+    function getMois(d) { return d ? d.substring(0, 7) : ""; }
 
-      let filtered = visibles;
-      let hasMatch = false;
+    function formatMoisLabel(v) {
+      var parts = v.split("-");
+      return MOIS[parseInt(parts[1])] + " " + parts[0];
+    }
 
-      if (moisFilter) {
-        filtered = visibles.filter(r => {
-          const mois = getMoisFromDate(r.fields["Date de disponibilité"] || '');
-          return !r.fields["Places disponible"] || mois <= moisFilter;
-        });
-        hasMatch = visibles.some(r => {
-          const mois = getMoisFromDate(r.fields["Date de disponibilité"] || '');
-          const places = r.fields["Places disponible"] || 0;
-          return places > 0 && mois <= moisFilter;
-        });
+    function formatDate(d) {
+      if (!d) return "Non communiqu\u00e9e";
+      var parts = d.split("-");
+      return parseInt(parts[2]) + " " + MOIS[parseInt(parts[1])] + " " + parts[0];
+    }
+
+    var allRecords = [];
+    var activeMonth = "";
+
+    function buildMonthBtns() {
+      var map = {};
+      for (var i = 0; i < allRecords.length; i++) {
+        var r = allRecords[i];
+        var m = getMois(r.fields["Date de disponibilit\u00e9"]);
+        var p = r.fields["Places disponible"] || 0;
+        if (m && p > 0) { map[m] = (map[m] || 0) + p; }
       }
-
-      let html = '';
-
-      if (moisFilter && !hasMatch) {
-        html += `<div class="empty-state"><div class="empty-title">Aucune place disponible en ${formatMois(moisFilter)}</div><div class="empty-sub">Voici les prochaines disponibilités dans nos crèches</div></div>`;
-        filtered = visibles;
+      var row = document.getElementById("months-row");
+      row.innerHTML = "";
+      var keys = Object.keys(map).sort();
+      for (var j = 0; j < keys.length; j++) {
+        var key = keys[j];
+        var btn = document.createElement("button");
+        btn.className = "month-btn has-places";
+        btn.dataset.val = key;
+        btn.innerHTML = formatMoisLabel(key) + " <span class=\"dot-count\">" + map[key] + "</span>";
+        btn.setAttribute("onclick", "selectMonth('" + key + "')");
+        row.appendChild(btn);
       }
-
-      html += filtered.map(r => {
-        const f = r.fields;
-        const nom = Array.isArray(f["Nom de la crèche"]) ? f["Nom de la crèche"][0] : "Crèche";
-        const places = f["Places disponible"] || 0;
-        const hasPlaces = places > 0;
-        const dispo = formatDate(f["Date de disponibilité"]);
-        const ageMin = f["Âge minimum (mois)"] ?? "?";
-        const ageMax = f["Âge maximum (mois)"] ?? "?";
-
-        const equipHTML = equipements.filter(e => {
-          const val = f[e.champ];
-          return Array.isArray(val) ? val[0] === true : val === true;
-        }).map(e => `<span class="equip-item"><span class="equip-dot"></span>${e.emoji} ${e.label}</span>`).join("");
-
-        if (hasPlaces) {
-          return `<div class="card">
-            <div class="card-header"><div>${iconHouse("#F5F3FF","#8A4CFF")}<div class="card-name">${nom}</div></div><span class="badge-places">${places} place${places>1?'s':''}</span></div>
-            <div class="divider"></div>
-            <div class="info-grid">
-              <div class="info-item"><div class="info-label">Disponible</div><div class="info-value">${dispo}</div></div>
-              <div class="info-item"><div class="info-label">Tranche d'âge</div><div class="info-value">${ageMin} – ${ageMax} mois</div></div>
-            </div>
-            ${f["Type de contrat"] ? `<span class="tag">${f["Type de contrat"]}</span>` : ""}
-            ${equipHTML ? `<div class="section-label">Services & équipements</div><div class="equip-wrap">${equipHTML}</div>` : ""}
-            ${f["Notes"] ? `<p class="note">${f["Notes"]}</p>` : ""}
-          </div>`;
-        } else {
-          return `<div class="card card-waiting">
-            <div class="card-header"><div>${iconHouse("#F0F0F0","#AAA")}<div class="card-name card-name-w">${nom}</div></div><span class="badge-attente">Liste d'attente</span></div>
-            <div class="divider" style="background:#EEE;"></div>
-            <div class="info-grid">
-              <div class="info-item" style="background:#F5F5F5;"><div class="info-label" style="color:#AAA;">Disponible</div><div class="info-value" style="color:#AAA;">—</div></div>
-              <div class="info-item" style="background:#F5F5F5;"><div class="info-label" style="color:#AAA;">Tranche d'âge</div><div class="info-value" style="color:#AAA;">${ageMin} – ${ageMax} mois</div></div>
-            </div>
-            <p class="note">Aucune place disponible actuellement</p>
-          </div>`;
-        }
-      }).join("");
-
-      container.innerHTML = html;
-      const nb = filtered.length;
-      document.getElementById('result-label').textContent = nb + ' crèche' + (nb>1?'s':'') + ' affichée' + (nb>1?'s':'');
     }
 
-    function filtrer() {
-      const val = document.getElementById('mois-select').value;
-      renderCards(allRecords, val);
+    function selectMonth(val) {
+      activeMonth = val;
+      var btns = document.querySelectorAll(".month-btn");
+      for (var i = 0; i < btns.length; i++) {
+        if (btns[i].dataset.val === val) { btns[i].classList.add("active"); }
+        else { btns[i].classList.remove("active"); }
+      }
+      renderCards();
     }
 
     function reset() {
-      document.getElementById('mois-select').value = '';
-      renderCards(allRecords, '');
+      activeMonth = "";
+      var btns = document.querySelectorAll(".month-btn");
+      for (var i = 0; i < btns.length; i++) { btns[i].classList.remove("active"); }
+      renderCards();
     }
 
-    fetch(`https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}`, {
-      headers: { Authorization: `Bearer ${API_KEY}` }
+    function renderCards() {
+      var container = document.getElementById("places-creches");
+      var visibles = allRecords.filter(function(r) { return r.fields["Visible sur le site"]; });
+      var total = 0;
+      for (var i = 0; i < visibles.length; i++) { total += visibles[i].fields["Places disponible"] || 0; }
+      document.getElementById("total-places").textContent = total;
+
+      var info = document.getElementById("filter-info");
+      var filtered = visibles;
+      var hasReal = false;
+
+      if (activeMonth) {
+        filtered = visibles.filter(function(r) {
+          var m = getMois(r.fields["Date de disponibilit\u00e9"] || "");
+          var p = r.fields["Places disponible"] || 0;
+          return p === 0 || (m && m <= activeMonth);
+        });
+        for (var j = 0; j < visibles.length; j++) {
+          var mj = getMois(visibles[j].fields["Date de disponibilit\u00e9"] || "");
+          var pj = visibles[j].fields["Places disponible"] || 0;
+          if (pj > 0 && mj && mj <= activeMonth) { hasReal = true; break; }
+        }
+        info.textContent = "Places disponibles en " + formatMoisLabel(activeMonth) + " \u2014 " + filtered.length + " cr\u00e8che" + (filtered.length > 1 ? "s" : "") + " affich\u00e9e" + (filtered.length > 1 ? "s" : "");
+      } else {
+        info.textContent = "Toutes les cr\u00e8ches \u2014 s\u00e9lectionnez un mois pour filtrer";
+      }
+
+      var html = "";
+      if (activeMonth && !hasReal) {
+        html += "<div class=\"empty-state\"><div class=\"empty-title\">Aucune place disponible ce mois</div><div class=\"empty-sub\">Voici les prochaines disponibilit\u00e9s dans nos cr\u00e8ches</div></div>";
+        filtered = visibles;
+      }
+
+      for (var k = 0; k < filtered.length; k++) {
+        var f = filtered[k].fields;
+        var nom = Array.isArray(f["Nom de la cr\u00e8che"]) ? f["Nom de la cr\u00e8che"][0] : "Cr\u00e8che";
+        var places = f["Places disponible"] || 0;
+        var hasPlaces = places > 0;
+        var dispo = formatDate(f["Date de disponibilit\u00e9"]);
+        var ageMin = f["\u00c2ge minimum (mois)"] !== undefined ? f["\u00c2ge minimum (mois)"] : "?";
+        var ageMax = f["\u00c2ge maximum (mois)"] !== undefined ? f["\u00c2ge maximum (mois)"] : "?";
+        var contrat = f["Type de contrat"] || "\u2014";
+
+        var equipHTML = "";
+        for (var e = 0; e < equipements.length; e++) {
+          var v = f[equipements[e].champ];
+          var isActive = Array.isArray(v) ? v[0] === true : v === true;
+          if (isActive) {
+            equipHTML += "<span class=\"epill\">" + equipements[e].emoji + " " + equipements[e].label + "</span>";
+          }
+        }
+
+        if (hasPlaces) {
+          html += "<div class=\"card\"><div class=\"card-top-bar\"></div><div class=\"card-body\">";
+          html += "<div class=\"card-head\"><div class=\"card-left\"><div class=\"avatar\">" + houseIcon("#8A4CFF") + "</div>";
+          html += "<span class=\"cname\">" + nom + "</span></div>";
+          html += "<span class=\"badge bp\">" + places + " place" + (places > 1 ? "s" : "") + "</span></div>";
+          html += "<div class=\"date-chip\"><div class=\"date-chip-icon\">" + calIcon("#fff") + "</div>";
+          html += "<div><div class=\"date-chip-label\">Date de disponibilit\u00e9</div>";
+          html += "<div class=\"date-chip-val\">" + dispo + "</div></div></div>";
+          html += "<div class=\"row2\"><div class=\"ibox\"><div class=\"ilbl\">Tranche d\u2019\u00e2ge</div><div class=\"ival\">" + ageMin + " \u2013 " + ageMax + " mois</div></div>";
+          html += "<div class=\"ibox\"><div class=\"ilbl\">Contrat</div><div class=\"ival\">" + contrat + "</div></div></div>";
+          if (equipHTML) {
+            html += "<div class=\"elbl\">Services &amp; \u00e9quipements</div><div class=\"epills\">" + equipHTML + "</div>";
+          }
+          if (f["Notes"]) { html += "<p class=\"note\">" + f["Notes"] + "</p>"; }
+          html += "</div></div>";
+        } else {
+          html += "<div class=\"card card-waiting\"><div class=\"card-top-bar-grey\"></div><div class=\"card-body\">";
+          html += "<div class=\"card-head\"><div class=\"card-left\"><div class=\"avatar avatar-grey\">" + houseIcon("#BBBBBB") + "</div>";
+          html += "<span class=\"cname cname-grey\">" + nom + "</span></div>";
+          html += "<span class=\"badge bw\">Liste d\u2019attente</span></div>";
+          html += "<div class=\"date-chip date-chip-grey\"><div class=\"date-chip-icon date-chip-icon-grey\">" + calIcon("#BBBBBB") + "</div>";
+          html += "<div><div class=\"date-chip-label date-chip-label-grey\">Date de disponibilit\u00e9</div>";
+          html += "<div class=\"date-chip-val date-chip-val-grey\">Non communiqu\u00e9e</div></div></div>";
+          html += "<div class=\"row2\"><div class=\"ibox ibox-grey\"><div class=\"ilbl ilbl-grey\">Tranche d\u2019\u00e2ge</div><div class=\"ival ival-grey\">" + ageMin + " \u2013 " + ageMax + " mois</div></div>";
+          html += "<div class=\"ibox ibox-grey\"><div class=\"ilbl ilbl-grey\">Contrat</div><div class=\"ival ival-grey\">\u2014</div></div></div>";
+          html += "<p style=\"font-size:12px;color:#BBBBBB;font-style:italic;\">Aucune place disponible actuellement</p>";
+          html += "</div></div>";
+        }
+      }
+      container.innerHTML = html;
+    }
+
+    fetch("https://api.airtable.com/v0/" + BASE_ID + "/" + TABLE_ID, {
+      headers: { Authorization: "Bearer " + API_KEY }
     })
-    .then(r => r.json())
-    .then(data => {
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
       if (data.error) {
-        document.getElementById('places-creches').innerHTML = `<div class="erreur">Erreur : ${data.error.message}</div>`;
+        document.getElementById("places-creches").innerHTML = "<div class=\"erreur\">Erreur : " + data.error.message + "</div>";
         return;
       }
       allRecords = data.records;
-      populateSelect();
-      renderCards(allRecords, '');
+      buildMonthBtns();
+      renderCards();
     })
-    .catch(err => {
-      document.getElementById('places-creches').innerHTML = `<div class="erreur">Erreur réseau : ${err.message}</div>`;
+    .catch(function(err) {
+      document.getElementById("places-creches").innerHTML = "<div class=\"erreur\">Erreur r\u00e9seau : " + err.message + "</div>";
     });
   </script>
 </body>
