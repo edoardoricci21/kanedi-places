@@ -40,7 +40,7 @@
     .card-body{padding:16px 20px 20px}
     .cname{font-size:16px;font-weight:700;color:#2C2C2C;margin-bottom:14px}
     .cname-grey{color:#AAAAAA}
-    .detail-panel{background:#F5F3FF;border-radius:14px;border:1px solid #E0D5FF;overflow:hidden;margin-bottom:12px;max-height:0;transition:max-height 0.35s ease}
+    .detail-panel{background:#F5F3FF;border-radius:14px;border:1px solid #E0D5FF;overflow:hidden;margin-bottom:12px;max-height:0px;transition:max-height 0.35s ease}
     .detail-header{padding:10px 14px;font-size:9px;font-weight:700;color:#8A4CFF;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #E0D5FF}
     .contrat-row{display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid #EDE8FF;gap:10px}
     .contrat-row:last-child{border-bottom:none}
@@ -48,6 +48,7 @@
     .contrat-info{flex:1}
     .contrat-type{font-size:13px;font-weight:600;color:#2C2C2C}
     .contrat-age{font-size:11px;color:#8A4CFF;margin-top:2px}
+    .contrat-date{font-size:10px;color:#2C2C2C;opacity:0.5;margin-top:2px;font-style:italic}
     .contrat-places{font-size:11px;background:#8A4CFF;color:#fff;border-radius:20px;padding:3px 8px;white-space:nowrap;font-weight:600}
     .maps-chip{display:flex;align-items:center;gap:8px;background:#F5F3FF;border:1px solid #E0D5FF;border-radius:12px;padding:10px 14px;margin-bottom:12px;text-decoration:none}
     .maps-chip:hover{background:#EDE8FF}
@@ -63,12 +64,6 @@
     .date-chip-label-grey{color:#BBBBBB}
     .date-chip-val{font-size:13px;color:#2C2C2C;font-weight:600}
     .date-chip-val-grey{color:#BBBBBB}
-    .ibox{background:#F5F3FF;border-radius:10px;padding:9px 12px}
-    .ibox-grey{background:#F5F5F5}
-    .ilbl{font-size:9px;font-weight:700;color:#8A4CFF;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px}
-    .ilbl-grey{color:#BBBBBB}
-    .ival{font-size:13px;color:#2C2C2C;font-weight:500}
-    .ival-grey{color:#BBBBBB}
     .elbl{font-size:9px;font-weight:700;color:#8A4CFF;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:7px}
     .epills{display:flex;flex-wrap:wrap;gap:5px}
     .epill{display:inline-flex;align-items:center;gap:5px;background:#F5F3FF;border:1px solid #E8E0FF;border-radius:20px;padding:4px 10px;font-size:11px;color:#2C2C2C}
@@ -102,7 +97,7 @@
   <div class="footer">Kanedi Kids Luxembourg &#8212; kanedikids.lu</div>
 
   <script>
-    var API_KEY = "patFlDZFACoixAH9A" + ".123e69600429a9f63a92fd42a4ee439da015765cb5bf730835f74400d14c84c1";
+    var API_KEY = "patLkzTBvRjIZE5YP" + ".5763ce553d3dd7e01cd7a578718c285754fd93ba450b7a2a0c3dcd395d926b45";
     var BASE_ID = "app0zlg67GXNa7xjB";
     var TABLE_ID = "tblLgTCx0aWIP0Pux";
     var MOIS = ["","Janvier","F\u00e9vrier","Mars","Avril","Mai","Juin","Juillet","Ao\u00fbt","Septembre","Octobre","Novembre","D\u00e9cembre"];
@@ -119,9 +114,9 @@
     ];
 
     var contrats = [
-      { label: "Temps plein", places: "Places temps plein", ageMin: "\u00c2ge min temps plein", ageMax: "\u00c2ge max temps plein" },
-      { label: "Mi-temps",    places: "Places mi-temps",    ageMin: "\u00c2ge min mi-temps",    ageMax: "\u00c2ge max mi-temps" },
-      { label: "Occasionnel", places: "Places occasionnel", ageMin: "\u00c2ge min occasionnel", ageMax: "\u00c2ge max occasionnel" }
+      { label: "Temps plein", places: "Places temps plein", ageMin: "\u00c2ge min temps plein", ageMax: "\u00c2ge max temps plein", date: "Date temps plein" },
+      { label: "Mi-temps",    places: "Places mi-temps",    ageMin: "\u00c2ge min mi-temps",    ageMax: "\u00c2ge max mi-temps",    date: "Date mi-temps" },
+      { label: "Occasionnel", places: "Places occasionnel", ageMin: "\u00c2ge min occasionnel", ageMax: "\u00c2ge max occasionnel", date: "Date occasionnel" }
     ];
 
     function calIcon(stroke) {
@@ -140,7 +135,7 @@
     }
 
     function formatDate(d) {
-      if (!d) return "Non communiqu\u00e9e";
+      if (!d) return "";
       var parts = d.split("-");
       return parseInt(parts[2]) + " " + MOIS[parseInt(parts[1])] + " " + parts[0];
     }
@@ -263,7 +258,6 @@
         var nom = Array.isArray(f["Nom de la cr\u00e8che"]) ? f["Nom de la cr\u00e8che"][0] : "Cr\u00e8che";
         var places = f["Places disponible"] || 0;
         var hasPlaces = places > 0;
-        var dispo = formatDate(f["Date de disponibilit\u00e9"]);
         var photoUrl = getPhotoUrl(f);
         var adresse = getAdresse(f);
         var mapsUrl = adresse ? "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(adresse + ", Luxembourg") : "";
@@ -283,6 +277,7 @@
           var cPlaces = f[c.places];
           var cMin = f[c.ageMin];
           var cMax = f[c.ageMax];
+          var cDate = formatDate(f[c.date] || "");
           if (cPlaces && cPlaces > 0) {
             detailHTML += "<div class=\"contrat-row\">";
             detailHTML += "<div class=\"contrat-dot\"></div>";
@@ -290,6 +285,9 @@
             detailHTML += "<div class=\"contrat-type\">" + c.label + "</div>";
             if (cMin !== undefined && cMax !== undefined) {
               detailHTML += "<div class=\"contrat-age\">" + cMin + " \u2013 " + cMax + " mois</div>";
+            }
+            if (cDate) {
+              detailHTML += "<div class=\"contrat-date\">D\u00e8s le " + cDate + "</div>";
             }
             detailHTML += "</div>";
             detailHTML += "<span class=\"contrat-places\">" + cPlaces + " place" + (cPlaces > 1 ? "s" : "") + "</span>";
@@ -330,8 +328,6 @@
             html += "</div>";
           }
           html += mapsHTML;
-          html += "<div class=\"date-chip\"><div class=\"date-chip-icon\">" + calIcon("#fff") + "</div>";
-          html += "<div><div class=\"date-chip-label\">Date de disponibilit\u00e9</div><div class=\"date-chip-val\">" + dispo + "</div></div></div>";
           if (equipHTML) { html += "<div class=\"elbl\">Services &amp; \u00e9quipements</div><div class=\"epills\">" + equipHTML + "</div>"; }
           if (f["Notes"]) { html += "<p class=\"note\">" + f["Notes"] + "</p>"; }
           html += "</div></div>";
@@ -342,9 +338,6 @@
           html += "<div class=\"cname cname-grey\">" + nom + "</div>";
           html += "<div class=\"date-chip date-chip-grey\"><div class=\"date-chip-icon date-chip-icon-grey\">" + calIcon("#BBBBBB") + "</div>";
           html += "<div><div class=\"date-chip-label date-chip-label-grey\">Date de disponibilit\u00e9</div><div class=\"date-chip-val date-chip-val-grey\">Non communiqu\u00e9e</div></div></div>";
-          html += "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;\">";
-          html += "<div class=\"ibox ibox-grey\"><div class=\"ilbl ilbl-grey\">Tranche d\u2019\u00e2ge</div><div class=\"ival ival-grey\">3 \u2013 36 mois</div></div>";
-          html += "<div class=\"ibox ibox-grey\"><div class=\"ilbl ilbl-grey\">Contrat</div><div class=\"ival ival-grey\">\u2014</div></div></div>";
           html += "<p style=\"font-size:12px;color:#BBBBBB;font-style:italic;\">Aucune place disponible actuellement</p>";
           html += "</div></div>";
         }
