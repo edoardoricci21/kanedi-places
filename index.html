@@ -31,39 +31,60 @@
     .card{background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #EDE8FF}
     .card-photo{width:100%;height:160px;object-fit:cover;display:block}
     .card-photo-placeholder{width:100%;height:160px;background:#F5F3FF;display:flex;align-items:center;justify-content:center}
-    .card-badge-wrap{position:relative;margin-top:-18px;padding:0 20px;margin-bottom:4px;display:flex;justify-content:flex-end}
-    .badge-btn{font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;white-space:nowrap;border:2px solid #fff;background:#8A4CFF;color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-    .badge-arrow{font-size:10px;display:inline-block}
-    .badge-attente{font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;border:2px solid #fff;background:#FF6B6B;color:#fff;white-space:nowrap}
+    .card-badge-wrap{position:relative;margin-top:-18px;padding:0 18px;margin-bottom:4px;display:flex;justify-content:flex-end}
+    .badge-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+    .badge-count{font-size:11px;font-weight:700;padding:5px 13px;border-radius:20px;border:2px solid #fff;white-space:nowrap;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+    .badge-count.dispo{background:#AAB3FF;color:#3730a3}
+    .badge-count.bientot{background:#C4B5FD;color:#4c1d95}
+    .badge-count.dernier{background:#8E8EDB;color:#fff}
+    .badge-count.complet{background:#E5E5E5;color:#5A5A5A;cursor:default}
+    .badge-hint{font-size:10px;padding-right:2px;display:flex;align-items:center;gap:3px}
+    .badge-hint.dispo{color:#6366f1}
+    .badge-hint.bientot{color:#7c3aed}
+    .badge-hint.dernier{color:#4f46e5}
+    .badge-hint.complet{color:#888}
     .card-body{padding:16px 20px 20px}
-    .cname{font-size:16px;font-weight:700;color:#2C2C2C;margin-bottom:14px}
-    .detail-panel{background:#F5F3FF;border-radius:14px;border:1px solid #E0D5FF;overflow:hidden;margin-bottom:12px;max-height:0px;transition:max-height 0.35s ease}
-    .detail-header{padding:10px 14px;font-size:9px;font-weight:700;color:#8A4CFF;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #E0D5FF}
-    .contrat-row{display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid #EDE8FF;gap:10px}
+    .cname{font-size:15px;font-weight:700;color:#2C2C2C;margin-bottom:12px}
+    .detail-panel{border-radius:12px;overflow:hidden;margin-bottom:12px;max-height:0px;transition:max-height 0.35s ease}
+    .detail-panel.dispo{background:#F0F1FF;border:1px solid #C7CBFF}
+    .detail-panel.bientot{background:#F3F0FF;border:1px solid #D4C5FF}
+    .detail-panel.dernier{background:#EEEEFF;border:1px solid #8E8EDB}
+    .detail-header{padding:8px 13px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid rgba(0,0,0,0.06)}
+    .detail-header.dispo{color:#3730a3}
+    .detail-header.bientot{color:#4c1d95}
+    .detail-header.dernier{color:#3730a3}
+    .contrat-row{display:flex;align-items:center;padding:9px 13px;border-bottom:1px solid rgba(0,0,0,0.05);gap:9px}
     .contrat-row:last-child{border-bottom:none}
-    .contrat-dot{width:8px;height:8px;border-radius:50%;background:#8A4CFF;flex-shrink:0}
+    .contrat-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+    .contrat-dot.dispo{background:#AAB3FF}
+    .contrat-dot.bientot{background:#8E8EDB}
+    .contrat-dot.dernier{background:#6366f1}
     .contrat-info{flex:1}
-    .contrat-type{font-size:13px;font-weight:600;color:#2C2C2C}
-    .contrat-age{font-size:11px;color:#8A4CFF;margin-top:2px}
-    .contrat-date{font-size:10px;color:#2C2C2C;opacity:0.5;margin-top:2px;font-style:italic}
-    .contrat-places{font-size:11px;background:#8A4CFF;color:#fff;border-radius:20px;padding:3px 8px;white-space:nowrap;font-weight:600}
-    .attente-box{background:#FFF0F0;border:1px solid #FFD0D0;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
-    .attente-icon{width:30px;height:30px;border-radius:8px;background:#FF6B6B;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .attente-label{font-size:9px;color:#FF6B6B;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:2px}
-    .attente-val{font-size:12px;color:#2C2C2C;font-weight:500}
-    .maps-chip{display:flex;align-items:center;gap:8px;background:#F5F3FF;border:1px solid #E0D5FF;border-radius:12px;padding:10px 14px;margin-bottom:12px;text-decoration:none}
+    .contrat-type{font-size:12px;font-weight:600;color:#2C2C2C}
+    .contrat-age{font-size:10px;color:#6366f1;margin-top:2px}
+    .contrat-date{font-size:9px;color:#2C2C2C;opacity:0.45;margin-top:2px;font-style:italic}
+    .cp{font-size:10px;border-radius:20px;padding:3px 8px;font-weight:600;white-space:nowrap}
+    .cp.dispo{background:#AAB3FF;color:#3730a3}
+    .cp.bientot{background:#C4B5FD;color:#4c1d95}
+    .cp.dernier{background:#8E8EDB;color:#fff}
+    .complet-box{background:#F5F5F5;border:1px solid #E0E0E0;border-radius:12px;padding:12px 14px;margin-bottom:10px}
+    .complet-title{font-size:12px;font-weight:700;color:#5A5A5A;margin-bottom:4px}
+    .complet-sub{font-size:11px;color:#888;line-height:1.5}
+    .attente-btn{width:100%;padding:9px;border-radius:10px;border:1.5px solid #C4B5FD;background:#F5F3FF;color:#8A4CFF;font-size:11px;font-weight:600;cursor:pointer;margin-bottom:12px;text-align:center;display:block}
+    .maps-chip{display:flex;align-items:center;gap:8px;background:#F5F3FF;border:1px solid #E0D5FF;border-radius:12px;padding:10px 13px;margin-bottom:10px;text-decoration:none}
     .maps-chip:hover{background:#EDE8FF}
-    .maps-icon{width:30px;height:30px;border-radius:8px;background:#8A4CFF;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .maps-icon{width:28px;height:28px;border-radius:7px;background:#8A4CFF;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .maps-label{font-size:9px;color:#8A4CFF;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:2px}
-    .maps-val{font-size:12px;color:#2C2C2C;font-weight:500}
-    .maps-open{font-size:11px;color:#8A4CFF;font-weight:600;white-space:nowrap;margin-left:auto}
-    .date-chip{display:flex;align-items:center;gap:10px;background:#F5F3FF;border:1px solid #E0D5FF;border-radius:12px;padding:10px 14px;margin-bottom:12px}
-    .date-chip-icon{width:30px;height:30px;border-radius:8px;background:#8A4CFF;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .maps-val{font-size:11px;color:#2C2C2C;font-weight:500}
+    .maps-cta{font-size:10px;color:#8A4CFF;font-weight:600;margin-left:auto;white-space:nowrap}
+    .date-chip{display:flex;align-items:center;gap:10px;background:#F5F3FF;border:1px solid #E0D5FF;border-radius:12px;padding:10px 13px;margin-bottom:10px}
+    .date-chip-icon{width:28px;height:28px;border-radius:7px;background:#8A4CFF;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .date-chip-label{font-size:9px;color:#8A4CFF;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:2px}
-    .date-chip-val{font-size:13px;color:#2C2C2C;font-weight:600}
+    .date-chip-val{font-size:12px;color:#2C2C2C;font-weight:600}
     .elbl{font-size:9px;font-weight:700;color:#8A4CFF;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:7px}
-    .epills{display:flex;flex-wrap:wrap;gap:5px}
-    .epill{display:inline-flex;align-items:center;gap:5px;background:#F5F3FF;border:1px solid #E8E0FF;border-radius:20px;padding:4px 10px;font-size:11px;color:#2C2C2C}
+    .epills{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+    .epill{display:inline-flex;align-items:center;gap:4px;background:#F5F3FF;border:1px solid #E8E0FF;border-radius:20px;padding:4px 10px;font-size:11px;color:#2C2C2C}
+    .epill-more{display:inline-flex;align-items:center;background:#EDE8FF;border:1px solid #C4B5FD;border-radius:20px;padding:4px 9px;font-size:10px;color:#6A4CCC;font-weight:600}
     .note{font-size:11px;color:#2C2C2C;opacity:0.4;margin-top:12px;font-style:italic;padding-top:12px;border-top:1px solid #F0EDFF}
     .empty-state{background:#fff;border-radius:20px;padding:40px;text-align:center;border:1.5px solid #EDE8FF;grid-column:1/-1}
     .empty-title{font-size:16px;font-weight:600;color:#8A4CFF;margin-bottom:6px}
@@ -94,7 +115,7 @@
   <div class="footer">Kanedi Kids Luxembourg &#8212; kanedikids.lu</div>
 
   <script>
-    var API_KEY = "patoqexOltg8gMC0E" + ".4c78b1d0c7e04ca734af32d1c1381d909a16133ec9e3526739da78a27b22c3f5";
+    var API_KEY = "patG98sTaAHV0SFN7" + ".d308c154a59a558d3f2dbbea097676a20ad1b17970478a0175b262a7645c6875";
     var BASE_ID = "app0zlg67GXNa7xjB";
     var TABLE_ID = "tblLgTCx0aWIP0Pux";
     var MOIS = ["","Janvier","F\u00e9vrier","Mars","Avril","Mai","Juin","Juillet","Ao\u00fbt","Septembre","Octobre","Novembre","D\u00e9cembre"];
@@ -116,16 +137,34 @@
       { label: "Occasionnel", places: "Places occasionnel", ageMin: "\u00c2ge min occasionnel", ageMax: "\u00c2ge max occasionnel", date: "Date occasionnel" }
     ];
 
+    function getEtat(places) {
+      if (places >= 5) return "dispo";
+      if (places >= 3) return "bientot";
+      if (places >= 1) return "dernier";
+      return "complet";
+    }
+
+    function getBadgeLabel(places) {
+      if (places >= 5) return places + " places disponibles";
+      if (places >= 3) return places + " places disponibles";
+      if (places === 1) return "1 place disponible";
+      if (places >= 1) return places + " places disponibles";
+      return "Complet pour le moment";
+    }
+
+    function getHintLabel(places) {
+      if (places >= 5) return "Voir le d\u00e9tail des contrats \u2192";
+      if (places >= 3) return "Bient\u00f4t complet \u00b7 Voir le d\u00e9tail \u2192";
+      if (places >= 1) return "Derni\u00e8res places \u00b7 Voir le d\u00e9tail \u2192";
+      return "Inscrivez-vous en liste d\u2019attente";
+    }
+
     function calIcon(stroke) {
-      return "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"" + stroke + "\" stroke-width=\"2\" width=\"14\" height=\"14\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"/><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"/></svg>";
+      return "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"" + stroke + "\" stroke-width=\"2\" width=\"13\" height=\"13\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"/><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"/></svg>";
     }
 
-    function mapIcon(stroke) {
-      return "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"" + stroke + "\" stroke-width=\"2\" width=\"14\" height=\"14\"><path d=\"M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg>";
-    }
-
-    function alertIcon() {
-      return "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" width=\"14\" height=\"14\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"12\"/><line x1=\"12\" y1=\"16\" x2=\"12.01\" y2=\"16\"/></svg>";
+    function mapIcon() {
+      return "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\" width=\"13\" height=\"13\"><path d=\"M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg>";
     }
 
     function getMois(d) { return d ? d.substring(0, 7) : ""; }
@@ -138,21 +177,12 @@
     function formatDate(d) {
       if (!d) return "";
       var parts = d.split("-");
-      if (parts.length === 3) {
-        return parseInt(parts[2]) + " " + MOIS[parseInt(parts[1])] + " " + parts[0];
-      }
+      if (parts.length === 3) return parseInt(parts[2]) + " " + MOIS[parseInt(parts[1])] + " " + parts[0];
       return d;
     }
 
     function getPhotoUrl(f) {
-      var champs = [
-        "Photo cr\u00e8ches",
-        "Photo Cr\u00e8ches",
-        "Photo cr\u00e8che",
-        "Photo Cr\u00e8che",
-        "photo (\u00e0 partir de...)",
-        "Photo"
-      ];
+      var champs = ["Photo cr\u00e8ches","Photo Cr\u00e8ches","Photo cr\u00e8che","Photo Cr\u00e8che","photo (\u00e0 partir de...)","Photo"];
       for (var c = 0; c < champs.length; c++) {
         var field = f[champs[c]];
         if (!field) continue;
@@ -164,7 +194,6 @@
             if (item.thumbnails.full) return item.thumbnails.full.url;
             if (item.thumbnails.small) return item.thumbnails.small.url;
           }
-          if (Array.isArray(item) && item.length > 0 && item[0].url) return item[0].url;
         }
       }
       return "";
@@ -179,16 +208,9 @@
 
     function toggleDetail(id) {
       var panel = document.getElementById("panel-" + id);
-      var arrow = document.getElementById("arrow-" + id);
       if (!panel) return;
       var isOpen = panel.style.maxHeight && panel.style.maxHeight !== "0px";
-      if (isOpen) {
-        panel.style.maxHeight = "0px";
-        arrow.textContent = "\u25be";
-      } else {
-        panel.style.maxHeight = panel.scrollHeight + 20 + "px";
-        arrow.textContent = "\u25b4";
-      }
+      panel.style.maxHeight = isOpen ? "0px" : panel.scrollHeight + 20 + "px";
     }
 
     var allRecords = [];
@@ -271,19 +293,26 @@
         var rid = filtered[k].id;
         var nom = Array.isArray(f["Nom de la cr\u00e8che"]) ? f["Nom de la cr\u00e8che"][0] : "Cr\u00e8che";
         var places = f["Places disponible"] || 0;
+        var etat = getEtat(places);
         var hasPlaces = places > 0;
         var dispo = formatDate(f["Date de disponibilit\u00e9"]);
         var photoUrl = getPhotoUrl(f);
         var adresse = getAdresse(f);
         var mapsUrl = adresse ? "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(adresse + ", Luxembourg") : "";
 
-        var equipHTML = "";
+        var activeEquip = [];
         for (var e = 0; e < equipements.length; e++) {
           var v = f[equipements[e].champ];
           var isActive = Array.isArray(v) ? v[0] === true : v === true;
-          if (isActive) {
-            equipHTML += "<span class=\"epill\">" + equipements[e].emoji + " " + equipements[e].label + "</span>";
-          }
+          if (isActive) activeEquip.push(equipements[e]);
+        }
+        var equipHTML = "";
+        var maxShow = 3;
+        for (var ae = 0; ae < Math.min(activeEquip.length, maxShow); ae++) {
+          equipHTML += "<span class=\"epill\">" + activeEquip[ae].emoji + " " + activeEquip[ae].label + "</span>";
+        }
+        if (activeEquip.length > maxShow) {
+          equipHTML += "<span class=\"epill-more\">+" + (activeEquip.length - maxShow) + "</span>";
         }
 
         var detailHTML = "";
@@ -295,7 +324,7 @@
           var cDate = formatDate(f[c.date] || "");
           if (cPlaces && cPlaces > 0) {
             detailHTML += "<div class=\"contrat-row\">";
-            detailHTML += "<div class=\"contrat-dot\"></div>";
+            detailHTML += "<div class=\"contrat-dot " + etat + "\"></div>";
             detailHTML += "<div class=\"contrat-info\">";
             detailHTML += "<div class=\"contrat-type\">" + c.label + "</div>";
             if (cMin !== undefined && cMax !== undefined) {
@@ -305,7 +334,7 @@
               detailHTML += "<div class=\"contrat-date\">D\u00e8s le " + cDate + "</div>";
             }
             detailHTML += "</div>";
-            detailHTML += "<span class=\"contrat-places\">" + cPlaces + " place" + (cPlaces > 1 ? "s" : "") + "</span>";
+            detailHTML += "<span class=\"cp " + etat + "\">" + cPlaces + " place" + (cPlaces > 1 ? "s" : "") + "</span>";
             detailHTML += "</div>";
           }
         }
@@ -313,9 +342,9 @@
         var mapsHTML = "";
         if (mapsUrl) {
           mapsHTML += "<a href=\"" + mapsUrl + "\" target=\"_blank\" class=\"maps-chip\">";
-          mapsHTML += "<div class=\"maps-icon\">" + mapIcon("#fff") + "</div>";
+          mapsHTML += "<div class=\"maps-icon\">" + mapIcon() + "</div>";
           mapsHTML += "<div style=\"flex:1;\"><div class=\"maps-label\">Adresse</div><div class=\"maps-val\">" + adresse + "</div></div>";
-          mapsHTML += "<div class=\"maps-open\">Ouvrir \u2197</div>";
+          mapsHTML += "<div class=\"maps-cta\">Voir sur la carte \u2192</div>";
           mapsHTML += "</a>";
         }
 
@@ -323,44 +352,46 @@
           ? "<img class=\"card-photo\" src=\"" + photoUrl + "\" alt=\"" + nom + "\" />"
           : "<div class=\"card-photo-placeholder\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#C4B5FD\" stroke-width=\"1\" width=\"40\" height=\"40\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><circle cx=\"8.5\" cy=\"8.5\" r=\"1.5\"/><polyline points=\"21 15 16 10 5 21\"/></svg></div>";
 
+        html += "<div class=\"card\">" + photoHTML;
+        html += "<div class=\"card-badge-wrap\"><div class=\"badge-wrap\">";
+
         if (hasPlaces) {
-          html += "<div class=\"card\">" + photoHTML;
-          html += "<div class=\"card-badge-wrap\">";
-          html += "<button class=\"badge-btn\" onclick=\"toggleDetail('" + rid + "')\">";
-          html += places + " place" + (places > 1 ? "s" : "");
-          html += " <span class=\"badge-arrow\" id=\"arrow-" + rid + "\">\u25be</span>";
-          html += "</button></div>";
-          html += "<div class=\"card-body\">";
-          html += "<div class=\"cname\">" + nom + "</div>";
-          if (detailHTML) {
-            html += "<div class=\"detail-panel\" id=\"panel-" + rid + "\" style=\"max-height:0px;\">";
-            html += "<div class=\"detail-header\">D\u00e9tail des places disponibles</div>";
-            html += detailHTML;
-            html += "</div>";
-          }
-          html += mapsHTML;
-          if (dispo) {
-            html += "<div class=\"date-chip\"><div class=\"date-chip-icon\">" + calIcon("#fff") + "</div>";
-            html += "<div><div class=\"date-chip-label\">Premi\u00e8re disponibilit\u00e9</div><div class=\"date-chip-val\">" + dispo + "</div></div></div>";
-          }
-          if (equipHTML) { html += "<div class=\"elbl\">Services &amp; \u00e9quipements</div><div class=\"epills\">" + equipHTML + "</div>"; }
-          if (f["Notes"]) { html += "<p class=\"note\">" + f["Notes"] + "</p>"; }
-          html += "</div></div>";
+          html += "<button class=\"badge-count " + etat + "\" onclick=\"toggleDetail('" + rid + "')\">" + getBadgeLabel(places) + " \u25be</button>";
+          html += "<div class=\"badge-hint " + etat + "\">" + getHintLabel(places) + "</div>";
         } else {
-          html += "<div class=\"card\">" + photoHTML;
-          html += "<div class=\"card-badge-wrap\"><span class=\"badge-attente\">Aucune place</span></div>";
-          html += "<div class=\"card-body\">";
-          html += "<div class=\"cname\">" + nom + "</div>";
-          html += "<div class=\"attente-box\">";
-          html += "<div class=\"attente-icon\">" + alertIcon() + "</div>";
-          html += "<div><div class=\"attente-label\">Liste d\u2019attente</div>";
-          html += "<div class=\"attente-val\">Aucune place disponible actuellement</div></div>";
-          html += "</div>";
-          html += mapsHTML;
-          if (equipHTML) { html += "<div class=\"elbl\">Services &amp; \u00e9quipements</div><div class=\"epills\">" + equipHTML + "</div>"; }
-          if (f["Notes"]) { html += "<p class=\"note\">" + f["Notes"] + "</p>"; }
-          html += "</div></div>";
+          html += "<span class=\"badge-count complet\">Complet pour le moment</span>";
+          html += "<div class=\"badge-hint complet\">Inscrivez-vous en liste d\u2019attente</div>";
         }
+
+        html += "</div></div>";
+        html += "<div class=\"card-body\">";
+        html += "<div class=\"cname\">" + nom + "</div>";
+
+        if (hasPlaces && detailHTML) {
+          html += "<div class=\"detail-panel " + etat + "\" id=\"panel-" + rid + "\" style=\"max-height:0px;\">";
+          html += "<div class=\"detail-header " + etat + "\">D\u00e9tail par type de contrat</div>";
+          html += detailHTML;
+          html += "</div>";
+        }
+
+        if (!hasPlaces) {
+          html += "<div class=\"complet-box\">";
+          html += "<div class=\"complet-title\">Complet pour le moment</div>";
+          html += "<div class=\"complet-sub\">Toutes les places sont occup\u00e9es. Rejoignez notre liste d\u2019attente et soyez inform\u00e9 d\u00e8s qu\u2019une place se lib\u00e8re.</div>";
+          html += "</div>";
+          html += "<button class=\"attente-btn\">Rejoindre la liste d\u2019attente \u2192</button>";
+        }
+
+        html += mapsHTML;
+
+        if (hasPlaces && dispo) {
+          html += "<div class=\"date-chip\"><div class=\"date-chip-icon\">" + calIcon("#fff") + "</div>";
+          html += "<div><div class=\"date-chip-label\">Premi\u00e8re disponibilit\u00e9</div><div class=\"date-chip-val\">" + dispo + "</div></div></div>";
+        }
+
+        if (equipHTML) { html += "<div class=\"elbl\">Services &amp; \u00e9quipements</div><div class=\"epills\">" + equipHTML + "</div>"; }
+        if (f["Notes"]) { html += "<p class=\"note\">" + f["Notes"] + "</p>"; }
+        html += "</div></div>";
       }
       container.innerHTML = html;
     }
